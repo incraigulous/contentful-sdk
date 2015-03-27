@@ -14,11 +14,13 @@ abstract class SDKBase {
     protected $client;
     protected $requestDecorator;
     protected $clientClassName;
+    protected $cacher;
 
-    function __construct($spaceId, $accessToken)
+    function __construct($spaceId, $accessToken, CacherInterface $cacher = null)
     {
         $this->spaceId = $spaceId;
         $this->accessToken = $accessToken;
+        $this->cacher;
         $this->refresh();
     }
 
@@ -26,7 +28,7 @@ abstract class SDKBase {
      * Init and store a new client and decorator.
      */
     function refresh() {
-        $this->client = new $this->clientClassName($this->spaceId, $this->accessToken);
+        $this->client = new $this->clientClassName($this->spaceId, $this->accessToken, $this->cacher);
         $this->requestDecorator = new RequestDecorator();
     }
 

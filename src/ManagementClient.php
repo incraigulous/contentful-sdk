@@ -24,7 +24,7 @@ class ManagementClient extends ClientBase {
      */
     function post($resource, $payload = array(), $headers = array())
     {
-        return $this->client->post($this->build_url($resource), [
+        $result = $this->client->post($this->build_url($resource), [
             'headers' => array_merge([
                 'Content-Type' => $this->getContentType(),
                 'Authorization' => $this->getBearer(),
@@ -33,6 +33,7 @@ class ManagementClient extends ClientBase {
             'body' => json_encode($payload)
         ]);
         $this->flushTemporaryHeaders();
+        return $result;
     }
 
     /**
@@ -44,7 +45,7 @@ class ManagementClient extends ClientBase {
      */
     function put($resource, $payload = array(), $headers = array())
     {
-        return $this->client->put($this->build_url($resource), [
+        $result = $this->client->put($this->build_url($resource), [
             'headers' => array_merge([
                 'Content-Type' => $this->getContentType(),
                 'Authorization' => $this->getBearer(),
@@ -52,6 +53,8 @@ class ManagementClient extends ClientBase {
             ], $headers),
             'body' => json_encode($payload)
         ]);
+        $this->flushTemporaryHeaders();
+        return $result;
     }
 
     /**
@@ -62,10 +65,12 @@ class ManagementClient extends ClientBase {
      */
     function delete($resource, $headers = array())
     {
-        return $this->client->delete($this->build_url($resource), [
+        $result = $this->client->delete($this->build_url($resource), [
             'headers' => array_merge([
                 'Authorization' => $this->getBearer()
             ], $headers)
         ]);
+        $this->flushTemporaryHeaders();
+        return $result;
     }
 }

@@ -2,7 +2,6 @@
 namespace Incraigulous\ContentfulSDK;
 
 use GuzzleHttp;
-use Incraigulous\Contentful\ClientInterface;
 
 abstract class ClientBase implements ClientInterface {
 
@@ -10,11 +9,13 @@ abstract class ClientBase implements ClientInterface {
     private $spaceId;
     private $accessToken;
     protected $endpointBase;
+    protected $cacher;
 
-    function __construct($spaceId, $accessToken) {
+    function __construct($spaceId, $accessToken, CacherInterface $cacher = null) {
         $this->spaceId = $spaceId;
         $this->accessToken = $accessToken;
         $this->client = new GuzzleHttp\Client();
+        $this->cacher = $cacher;
     }
 
     /**
@@ -49,11 +50,16 @@ abstract class ClientBase implements ClientInterface {
      * @return mixed
      */
     function get($resource, $query = array(), $headers = array()) {
-        return $this->client->get($this->build_url($resource, $query), [
+        $url = $this->build_url($resource, $query);
+        $key = $this->buildCacheKey('get', $resource, $url, $headers, $query);
+        if (($this->cacher) && ($this->cacher->has($key))) return $this->cacher->get($key);
+        $result = $this->client->get($url, [
             'headers' => array_merge([
                 'Authorization' => $this->getBearer()
             ], $headers)
         ])->json();
+        if ($this->cacher) $this->cacher->put($key, $result);
+        return $result;
     }
 
     /**
@@ -67,5 +73,18 @@ abstract class ClientBase implements ClientInterface {
         if ($resource) $url .= '/' . $resource;
         if (!empty($query)) $url .= '?' . http_build_query($query);
         return $url;
+    }
+
+    /**
+     * Return a unique key for the query.
+     * @param $method
+     * @param $resource
+     * @param $url
+     * @param array $query
+     * @param array $headers
+     * @return string
+     */
+    function buildCacheKey($method, $resource, $url, $headers = array(), $query = array()) {
+        return md5($method . $resource . $url . json_encode($query) . json_encode($headers));
     }
 }
