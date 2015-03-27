@@ -1,6 +1,6 @@
 <?php
 
-namespace Incraigulous\Contentful;
+namespace Incraigulous\ContentfulSDK;
 
 
 interface CacherInterface {
