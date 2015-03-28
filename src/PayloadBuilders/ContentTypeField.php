@@ -1,7 +1,7 @@
 <?php
 namespace Incraigulous\ContentfulSDK\PayloadBuilders;
 
-class ContentTypeFields implements PayloadBuilderInterface {
+class ContentTypeField implements PayloadBuilderInterface {
     protected $id;
     protected $name;
     protected $type;

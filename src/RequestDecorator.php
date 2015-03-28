@@ -74,26 +74,50 @@ class RequestDecorator {
      * @param $payload
      * @return array
      */
-    function buildPayload($payload)
+    function buildPayload(&$payload)
     {
         if (is_array($payload)) {
-            array_walk_recursive($payload, array($this, 'buildPayloadItem'));
+            $payload = $this->array_map_deep($payload, array($this, 'buildPayloadItem'));
         } else {
             $payload = $this->makePayloadBuilder($payload);
+            $this->buildPayload($payload);
         }
+
         return $payload;
     }
 
     /**
-     * The array_walk_recursive callback for buildPayload. If the array part is an object, it attempts to make payloadBuilder.
-     * @param $item
-     * @param $key
+     * Helper function: Applies the callback to each level of array.
+     *
+     * @param $array
+     * @param $callback
+     * @return array|mixed
      */
-    function buildPayloadItem(&$item, $key)
+    function array_map_deep($array, $callback) {
+        $new = array();
+        if(is_array($array) ) foreach ($array as $key => $val) {
+            if (is_array($val)) {
+                $new[$key] = $this->array_map_deep($val, $callback);
+            } else {
+                $new[$key] = call_user_func($callback, $val);
+            }
+        }
+        else $new = call_user_func($callback, $array);
+        return $new;
+    }
+
+    /**
+     * The array_map_deep callback for buildPayload. If the array part is an object, it attempts to make payloadBuilder.
+     *
+     * @param $item
+     * @return mixed
+     */
+    function buildPayloadItem($item)
     {
         if (is_object($item)) {
-            $item = $this->makePayloadDecorator($item);
+            $item = $this->makePayloadBuilder($item);
         }
+        return $item;
     }
 
     /**
