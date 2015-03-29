@@ -60,14 +60,13 @@ class ManagementSDK extends SDKBase {
      * Make a put request.
      * @param $id
      * @param $payload
-     * @param int $previousVersion
      * @return mixed
      */
     function put($id, $payload)
     {
         $this->requestDecorator->setId($id);
         $this->requestDecorator->setPayload($payload);
-        if (!empty($payload['sys']['version'])) {
+        if ((is_array($payload)) && (!empty($payload['sys']['version']))) {
             $this->requestDecorator->addHeader('X-Contentful-Version', $payload['sys']['version']);
         }
         $result = $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
