@@ -16,6 +16,23 @@ class ManagementClient extends ClientBase {
     }
 
     /**
+     * Make a get request.
+     * @param $resource
+     * @param array $query
+     * @param array $headers
+     * @return mixed
+     */
+    function get($resource, $query = array(), $headers = array()) {
+        $url = $this->build_url($resource, $query);
+        $result = $this->client->get($url, [
+            'headers' => array_merge([
+                'Authorization' => $this->getBearer()
+            ], $headers)
+        ])->json();
+        return $result;
+    }
+
+    /**
      * Build and make a POST request.
      * @param $resource
      * @param array $payload
@@ -28,11 +45,10 @@ class ManagementClient extends ClientBase {
             'headers' => array_merge([
                 'Content-Type' => $this->getContentType(),
                 'Authorization' => $this->getBearer(),
-                'Content-Length' => strlen(json_encode($payload)),
+                'Content-Length' => (!count($payload)) ? 0 : strlen(json_encode($payload)),
             ], $headers),
             'body' => json_encode($payload)
         ]);
-        $this->flushTemporaryHeaders();
         return $result;
     }
 
@@ -49,11 +65,11 @@ class ManagementClient extends ClientBase {
             'headers' => array_merge([
                 'Content-Type' => $this->getContentType(),
                 'Authorization' => $this->getBearer(),
-                'Content-Length' => strlen(json_encode($payload)),
+                'Content-Length' => (!count($payload)) ? 0 : strlen(json_encode($payload)),
             ], $headers),
             'body' => json_encode($payload)
         ]);
-        $this->flushTemporaryHeaders();
+
         return $result;
     }
 
@@ -70,7 +86,6 @@ class ManagementClient extends ClientBase {
                 'Authorization' => $this->getBearer()
             ], $headers)
         ]);
-        $this->flushTemporaryHeaders();
         return $result;
     }
 }

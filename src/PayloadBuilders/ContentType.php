@@ -25,4 +25,12 @@ class ContentType implements PayloadBuilderInterface {
             'fields' => $this->contentTypeFields
         ];
     }
+
+    /**
+     * Return the key.
+     * @return mixed
+     */
+    function getKey() {
+        //No key used.
+    }
 }

@@ -31,4 +31,12 @@ class ContentTypeField implements PayloadBuilderInterface {
             'lacalized' => $this->localized
         ];
     }
+
+    /**
+     * Return the key.
+     * @return mixed
+     */
+    function getKey() {
+        //No key used.
+    }
 }

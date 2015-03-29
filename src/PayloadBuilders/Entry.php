@@ -35,4 +35,12 @@ class Entry implements PayloadBuilderInterface {
     {
         return ['fields' => $this->fields];
     }
+
+    /**
+     * Return the key.
+     * @return mixed
+     */
+    function getKey() {
+        //No key used.
+    }
 }

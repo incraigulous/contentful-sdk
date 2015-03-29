@@ -19,6 +19,15 @@ class Field implements PayloadBuilderInterface {
      */
     function make()
     {
-        return [$this->field => [$this->language => $this->content]];
+        if (is_array($this->content)) return $this->content;
+        return [$this->language => $this->content];
+    }
+
+    /**
+     * Return the key.
+     * @return mixed
+     */
+    function getKey() {
+        return $this->field;
     }
 }

@@ -7,4 +7,11 @@ interface PayloadBuilderInterface {
      * @return mixed
      */
     function make();
+
+    /**
+     * Return the key,
+     * @return mixed
+     */
+    function getKey();
+
 }

@@ -77,7 +77,7 @@ class RequestDecorator {
     function buildPayload(&$payload)
     {
         if (is_array($payload)) {
-            $payload = $this->array_map_deep($payload, array($this, 'buildPayloadItem'));
+            $payload = $this->array_map_deep($payload, array($this, 'buildPayloadItemInfo'));
         } else {
             $payload = $this->makePayloadBuilder($payload);
             $this->buildPayload($payload);
@@ -95,11 +95,12 @@ class RequestDecorator {
      */
     function array_map_deep($array, $callback) {
         $new = array();
-        if(is_array($array) ) foreach ($array as $key => $val) {
+        if(is_array($array)) foreach ($array as $key => $val) {
             if (is_array($val)) {
                 $new[$key] = $this->array_map_deep($val, $callback);
             } else {
-                $new[$key] = call_user_func($callback, $val);
+                $item = call_user_func($callback, $key, $val);
+                $new[$item['key']] = $item['item'];
             }
         }
         else $new = call_user_func($callback, $array);
@@ -110,24 +111,38 @@ class RequestDecorator {
      * The array_map_deep callback for buildPayload. If the array part is an object, it attempts to make payloadBuilder.
      *
      * @param $item
-     * @return mixed
+     * @return array
      */
-    function buildPayloadItem($item)
+    function buildPayloadItemInfo($key, $item)
     {
         if (is_object($item)) {
+            $key = ($this->getPayloadBuilderKey($item)) ? $this->getPayloadBuilderKey($item) : $key;
             $item = $this->makePayloadBuilder($item);
         }
-        return $item;
+        return array(
+            'key' => $key,
+            'item' => $item
+        );
     }
 
     /**
      * Make a payloadBuilder object.
      * @param PayloadBuilderInterface $payloadBuilder
-     * @return mixed
+     * @return array
      */
     function makePayloadBuilder(PayloadBuilderInterface $payloadBuilder)
     {
         return $payloadBuilder->make();
+    }
+
+    /**
+     * Get the payload builder key. Will return void if no key specified.
+     * @param PayloadBuilderInterface $payloadBuilder
+     * @return string|void
+     */
+    function getPayloadBuilderKey(PayloadBuilderInterface $payloadBuilder)
+    {
+        return $payloadBuilder->getKey();
     }
 
     /**

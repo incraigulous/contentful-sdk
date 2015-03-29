@@ -17,4 +17,12 @@ class Webhook implements PayloadBuilderInterface {
     {
         return ['url' => $this->url];
     }
+
+    /**
+     * Return the key.
+     * @return mixed
+     */
+    function getKey() {
+        //No key used.
+    }
 }

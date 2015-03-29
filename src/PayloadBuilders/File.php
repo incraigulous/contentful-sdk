@@ -30,4 +30,12 @@ class File implements PayloadBuilderInterface {
             ]
         ];
     }
+
+    /**
+     * Return the key.
+     * @return mixed
+     */
+    function getKey() {
+        //No key used.
+    }
 }

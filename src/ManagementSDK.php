@@ -19,6 +19,7 @@ class ManagementSDK extends SDKBase {
      */
     function entries($contentType = null)
     {
+        if ($contentType) $this->contentType($contentType);
         $this->requestDecorator->setResource('entries');
         return $this;
     }
@@ -62,12 +63,12 @@ class ManagementSDK extends SDKBase {
      * @param int $previousVersion
      * @return mixed
      */
-    function put($id, $payload, $previousVersion = 0)
+    function put($id, $payload)
     {
         $this->requestDecorator->setId($id);
         $this->requestDecorator->setPayload($payload);
-        if ($previousVersion) {
-            $this->requestDecorator->addHeader('X-Contentful-Version', $previousVersion);
+        if (!empty($payload['sys']['version'])) {
+            $this->requestDecorator->addHeader('X-Contentful-Version', $payload['sys']['version']);
         }
         $result = $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
         $this->refresh();
@@ -112,7 +113,7 @@ class ManagementSDK extends SDKBase {
     {
         $this->requestDecorator->setId($id  . '/published');
         $this->requestDecorator->addHeader('X-Contentful-Version', $previousVersion);
-        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makeHeaders());
         $this->refresh();
         return $result;
     }
@@ -138,7 +139,7 @@ class ManagementSDK extends SDKBase {
     function unarchive($id)
     {
         $this->requestDecorator->setId($id  . '/archived');
-        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makeHeaders());
         $this->refresh();
         return $result;
     }

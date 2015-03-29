@@ -17,4 +17,12 @@ class Space implements PayloadBuilderInterface {
     {
         return ['name' => $this->name];
     }
+
+    /**
+     * Return the key.
+     * @return mixed
+     */
+    function getKey() {
+        //No key used.
+    }
 }
