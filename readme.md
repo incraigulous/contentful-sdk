@@ -10,7 +10,7 @@ Install via composer by running:
 composer require incraigulous/contentful-sdk
 `````
 
-##Looking for the Laravel Toolkit?
+##This is the Generic PHP SDK. Looking for the Laravel Toolkit?
 [Click Here](https://github.com/incraigulous/contentful-laravel) for Laravel facades, a base repository, out-of-the-box caching and cache management, webhook creation by command and more.
 
 ##How to use it
