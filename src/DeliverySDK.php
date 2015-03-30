@@ -36,11 +36,14 @@ class DeliverySDK extends SDKBase {
 
     /**
      * Use the entries resource.
-     * @return \Incraigulous\ContentfulSDK\Resources\Entries
+     * @param null $contentType
+     * @return Entries
      */
-    function entries()
+    function entries($contentType = null)
     {
-        return new Entries($this->spaceId, $this->accessToken, $this->cacher);
+        $entries = new Entries($this->spaceId, $this->accessToken, $this->cacher);
+        if ($contentType) $entries->contentType($contentType);
+        return $entries;
     }
 
     /**
