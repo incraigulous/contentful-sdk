@@ -2,7 +2,7 @@
 
 namespace Incraigulous\ContentfulSDK;
 
-use Incraigulous\ContentfulSDK\ManagementResources\Spaces;
+use Incraigulous\ContentfulSDK\Resources\Spaces;
 use Incraigulous\ContentfulSDK\Resources\Assets;
 use Incraigulous\ContentfulSDK\Resources\ContentTypes;
 use Incraigulous\ContentfulSDK\Resources\Entries;
@@ -36,14 +36,11 @@ class DeliverySDK extends SDKBase {
 
     /**
      * Use the entries resource.
-     * @param null $contentType
      * @return Entries
      */
-    function entries($contentType = null)
+    function entries()
     {
-        $entries = new Entries($this->spaceId, $this->accessToken, $this->cacher);
-        if ($contentType) $entries->contentType($contentType);
-        return $entries;
+        return new Entries($this->spaceId, $this->accessToken, $this->cacher);
     }
 
     /**

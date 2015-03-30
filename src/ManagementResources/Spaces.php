@@ -4,6 +4,6 @@ namespace Incraigulous\ContentfulSDK\ManagementResources;
 
 
 class Spaces extends ResourceBase {
-    protected $resourceName = 'spaces';
+    protected $resourceName = null;
 
 }

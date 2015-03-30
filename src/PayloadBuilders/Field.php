@@ -8,11 +8,15 @@ class Field implements PayloadBuilderInterface {
     protected $languages;
     protected $links;
 
-    function __construct($name, $content = null, $language = 'en-US')
+    function __construct($name, $content = null, $language = null)
     {
         $this->name = $name;
         $this->content = $content;
-        $this->language = $language;
+        if (!$language && defined('CONTENTFUL_DEFAULT_LANGUAGE')) {
+            $this->language = CONTENTFUL_DEFAULT_LANGUAGE;
+        } else {
+            $this->language = 'en-US';
+        }
 
         $this->parseContent($content);
     }
