@@ -8,153 +8,63 @@
 
 namespace Incraigulous\ContentfulSDK;
 
+use Incraigulous\ContentfulSDK\ManagementResources\Assets;
+use Incraigulous\ContentfulSDK\ManagementResources\ContentTypes;
+use Incraigulous\ContentfulSDK\ManagementResources\Entries;
+use Incraigulous\ContentfulSDK\ManagementResources\Spaces;
+use Incraigulous\ContentfulSDK\ManagementResources\Webhooks;
+
+/**
+ * Factory for returning resources.
+ *
+ * Class ManagementSDK
+ * @package Incraigulous\ContentfulSDK
+ */
+
 class ManagementSDK extends SDKBase {
-    protected $clientClassName = 'Incraigulous\ContentfulSDK\ManagementClient';
+
+    /**
+     * Use the assets resource.
+     * @return \Incraigulous\ContentfulSDK\ManagementResources\Assets
+     */
+    function assets()
+    {
+        return new Assets($this->spaceId, $this->accessToken, $this->cacher);
+    }
+
+    /**
+     * Use the content_types resource.
+     * @return \Incraigulous\ContentfulSDK\ManagementResources\ContentTypes
+     */
+    function contentTypes()
+    {
+        return new ContentTypes($this->spaceId, $this->accessToken, $this->cacher);
+    }
 
     /**
      * Use the entries resource.
-     *
-     * @param null $contentType
-     * @return $this
+     * @return \Incraigulous\ContentfulSDK\ManagementResources\Entries
      */
-    function entries($contentType = null)
+    function entries()
     {
-        if ($contentType) $this->contentType($contentType);
-        $this->requestDecorator->setResource('entries');
-        return $this;
+        return new Entries($this->spaceId, $this->accessToken, $this->cacher);
     }
 
     /**
-     * Use the webhook_definitions resource.
-     * @return $this
+     * Use the spaces resource.
+     * @return \Incraigulous\ContentfulSDK\ManagementResources\Spaces
      */
-    function webhook()
+    function spaces()
     {
-        $this->requestDecorator->setResource('webhook_definitions');
-        return $this;
+        return new Spaces($this->spaceId, $this->accessToken, $this->cacher);
     }
 
     /**
-     * Alias for $this->webhook().
-     * @return ManagementSDK
+     * Use the spaces resource.
+     * @return \Incraigulous\ContentfulSDK\ManagementResources\Webhooks
      */
-    function webhookDefinitions()
+    function webhooks()
     {
-        return $this->webhook();
+        return new Webhooks($this->spaceId, $this->accessToken, $this->cacher);
     }
-
-    /**
-     * Make a post request.
-     * @param $payload
-     * @return mixed
-     */
-    function post($payload)
-    {
-        $this->requestDecorator->setPayload($payload);
-        $result = $this->client->post($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
-        $this->refresh();
-        return $result;
-    }
-
-    /**
-     * Make a put request.
-     * @param $id
-     * @param $payload
-     * @return mixed
-     */
-    function put($id, $payload)
-    {
-        $this->requestDecorator->setId($id);
-        $this->requestDecorator->setPayload($payload);
-        if ((is_array($payload)) && (!empty($payload['sys']['version']))) {
-            $this->requestDecorator->addHeader('X-Contentful-Version', $payload['sys']['version']);
-        }
-        $result = $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
-        $this->refresh();
-        return $result;
-    }
-
-    /**
-     * Make a delete request.
-     * @param $id
-     * @return mixed
-     */
-    function delete($id)
-    {
-        $this->requestDecorator->setId($id);
-        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makeHeaders());
-        $this->refresh();
-        return $result;
-    }
-
-    /**
-     * Publish a record.
-     * @param $id
-     * @param $previousVersion
-     * @return mixed
-     */
-    function publish($id, $previousVersion)
-    {
-        $this->requestDecorator->setId($id  . '/published');
-        $this->requestDecorator->addHeader('X-Contentful-Version', $previousVersion);
-        $result = $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
-        $this->refresh();
-        return $result;
-    }
-
-    /**
-     * Unublish a record.
-     * @param $id
-     * @param $previousVersion
-     * @return mixed
-     */
-    function unpublish($id, $previousVersion)
-    {
-        $this->requestDecorator->setId($id  . '/published');
-        $this->requestDecorator->addHeader('X-Contentful-Version', $previousVersion);
-        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makeHeaders());
-        $this->refresh();
-        return $result;
-    }
-
-    /**
-     * Archive a record.
-     * @param $id
-     * @return mixed
-     */
-    function archive($id)
-    {
-        $this->requestDecorator->setId($id  . '/archived');
-        $result = $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
-        $this->refresh();
-        return $result;
-    }
-
-    /**
-     * Unarchive a record.
-     * @param $id
-     * @return mixed
-     */
-    function unarchive($id)
-    {
-        $this->requestDecorator->setId($id  . '/archived');
-        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makeHeaders());
-        $this->refresh();
-        return $result;
-    }
-
-    /**
-     * Process an asset.
-     * @param $id
-     * @param string $language
-     * @return mixed
-     */
-    function process($id, $language = 'en-US')
-    {
-        $this->requestDecorator->setId($id  . '/files/' . $language . '/process');
-        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
-        $this->refresh();
-        return $result;
-    }
-
 }
