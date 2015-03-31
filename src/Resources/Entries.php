@@ -9,7 +9,7 @@
 namespace Incraigulous\ContentfulSDK\Resources;
 
 
-class Entries {
+class Entries extends  {
     protected $resourceName = 'entries';
 
     /**

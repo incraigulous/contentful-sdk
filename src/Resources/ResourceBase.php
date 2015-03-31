@@ -189,6 +189,6 @@ abstract class ResourceBase {
      */
     function client()
     {
-        return $this->client();
+        return $this->client;
     }
 }

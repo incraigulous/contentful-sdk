@@ -4,9 +4,17 @@
         "php": ">=5.4.0",
         "guzzlehttp/guzzle": "5.1.*"
     },
+    "require-dev": {
+      "phpunit/phpunit": "4.*"
+    },
     "autoload": {
         "psr-4": {
             "Incraigulous\\ContentfulSDK\\": "src/"
         }
-    }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Incraigulous\\ContentfulSDK\\Tests\\": "tests/"
+      }
+  }
 }
