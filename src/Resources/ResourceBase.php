@@ -42,7 +42,7 @@ abstract class ResourceBase {
     }
 
     /**
-     * Limit results by operator serach.
+     * Limit results by operator search.
      * @param $field
      * @param $operator
      * @param $value

@@ -21,13 +21,12 @@ class File implements PayloadBuilderInterface {
      */
     function make()
     {
-        return ['file' => [$this->language =>
+        return [$this->language =>
                 [
                     'contentType' => $this->contentType,
                     'fileName' => $this->fileName,
                     'upload' => $this->upload
                 ]
-            ]
         ];
     }
 
