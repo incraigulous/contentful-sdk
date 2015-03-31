@@ -1,12 +1,13 @@
 <?php
 namespace Incraigulous\ContentfulSDK\PayloadBuilders;
 
-class Entry implements PayloadBuilderInterface {
+class Asset implements PayloadBuilderInterface {
     protected $fields;
 
-    function __construct($fields = null)
+    function __construct($fields = null, $file = null)
     {
         $this->fields = $this->objectifyFields($fields);
+        $this->file = $this->objectifyFile($file);
     }
 
     /**
@@ -28,12 +29,26 @@ class Entry implements PayloadBuilderInterface {
     }
 
     /**
+     * Convert the field to an object to get the language formatting.
+     *
+     * @param $fields
+     * @return array
+     */
+    protected function objectifyFile($file) {
+        if (is_object($file)) {
+            return $file;
+        } else {
+            return new Field($file['contentType'], $file['fileName'], $file['upload'], $file['language']);
+        }
+    }
+
+    /**
      * Return the payload builder array part.
      * @return array
      */
     function make()
     {
-        return ['fields' => $this->fields];
+        return ['fields' => $this->fields, 'file' => $this->file];
     }
 
     /**

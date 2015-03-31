@@ -1,12 +1,11 @@
 <?php
 namespace Incraigulous\ContentfulSDK\PayloadBuilders;
 
-class Field implements PayloadBuilderInterface {
+class AssetField implements PayloadBuilderInterface {
     protected $name;
     protected $content;
     protected $language;
     protected $languages;
-    protected $links;
 
     function __construct($name, $content = null, $language = null)
     {
@@ -42,26 +41,6 @@ class Field implements PayloadBuilderInterface {
     }
 
     /**
-     * Create a relationship to a resource.
-     * @param $id
-     * @param string $linkType
-     * @param null $languageKey
-     * @return $this
-     */
-    function addLink($id, $linkType = 'Entry', $languageKey = null) {
-        if (!$languageKey) {
-            $languageKey = $this->language;
-        }
-        $this->links[$languageKey][] = ['sys' => [
-                    'type' => 'Link',
-                    'linkType' => $linkType,
-                    'id' => $id
-                ]
-        ];
-        return $this;
-    }
-
-    /**
      * Parse loaded content. Tests to see if it's a link or if languages are provided and handle appropriately.
      * @param $content
      */
@@ -93,9 +72,6 @@ class Field implements PayloadBuilderInterface {
      */
     function make()
     {
-        if ($this->links) {
-            return $this->links;
-        }
         return $this->languages;
     }
 
