@@ -111,7 +111,7 @@ abstract class ResourceBase {
                 $this->requestDecorator->addParameter($field, '[within]', $value);
                 break;
             default:
-                $this->requestDecorator->addParameter($field, $operator, $value);
+                $this->requestDecorator->addParameter($field, '[' . $operator . ']', $value);
         }
         return $this;
     }
@@ -146,7 +146,7 @@ abstract class ResourceBase {
      */
     function order($orderBy, $reverse = false)
     {
-        $this->requestDecorator->addParameter('order', ($reverse) ? "=" : "=-", $reverse);
+        $this->requestDecorator->addParameter('order', ($reverse) ? "=" : "=-", $orderBy);
         return $this;
     }
 
@@ -190,5 +190,12 @@ abstract class ResourceBase {
     function client()
     {
         return $this->client;
+    }
+
+    /**
+     * Return the decorator.
+     */
+    function decorator() {
+        return $this->requestDecorator;
     }
 }
