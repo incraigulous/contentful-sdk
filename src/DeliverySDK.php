@@ -2,7 +2,7 @@
 
 namespace Incraigulous\ContentfulSDK;
 
-use Incraigulous\ContentfulSDK\ManagementResources\Spaces;
+use Incraigulous\ContentfulSDK\Resources\Spaces;
 use Incraigulous\ContentfulSDK\Resources\Assets;
 use Incraigulous\ContentfulSDK\Resources\ContentTypes;
 use Incraigulous\ContentfulSDK\Resources\Entries;
@@ -36,7 +36,7 @@ class DeliverySDK extends SDKBase {
 
     /**
      * Use the entries resource.
-     * @return \Incraigulous\ContentfulSDK\Resources\Entries
+     * @return Entries
      */
     function entries()
     {
