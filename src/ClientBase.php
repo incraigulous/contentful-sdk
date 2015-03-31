@@ -13,7 +13,7 @@ abstract class ClientBase {
     function __construct($spaceId, $accessToken, CacherInterface $cacher = null) {
         $this->spaceId = $spaceId;
         $this->accessToken = $accessToken;
-        $this->client = new GuzzleHttp\Client();
+        $this->setClient(new GuzzleHttp\Client());
         $this->cacher = $cacher;
     }
 
@@ -23,6 +23,14 @@ abstract class ClientBase {
      */
     function getClient() {
         return $this->client;
+    }
+
+    /**
+     * Set the Guzzle Client.
+     * @return GuzzleHttp\Client
+     */
+    function setClient(GuzzleHttp\Client $client) {
+        $this->client = $client;
     }
 
     /**
