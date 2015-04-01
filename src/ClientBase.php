@@ -10,9 +10,9 @@ abstract class ClientBase {
     protected $endpointBase;
     protected $cacher;
 
-    function __construct($spaceId, $accessToken, CacherInterface $cacher = null) {
-        $this->spaceId = $spaceId;
+    function __construct($accessToken, $spaceId = null, CacherInterface $cacher = null) {
         $this->accessToken = $accessToken;
+        $this->spaceId = $spaceId;
         $this->setClient(new GuzzleHttp\Client());
         $this->cacher = $cacher;
     }
@@ -46,7 +46,11 @@ abstract class ClientBase {
      * @return string
      */
     function getEndpoint() {
-        return $this->endpointBase . $this->spaceId;
+        $endpoint = $this->endpointBase;
+        if ($this->spaceId) {
+            $endpoint .= '/' . $this->spaceId;
+        }
+        return $endpoint;
     }
 
     /**
@@ -77,7 +81,8 @@ abstract class ClientBase {
      */
     function build_url($resource, array $query = array()) {
         $url = $this->getEndpoint();
-        if ($resource) $url .= '/' . $resource;
+        if ($resource && $this->spaceId) $url .= '/';
+        if ($resource) $url .= $resource;
         if (!empty($query)) $url .= '?' . http_build_query($query);
         return $url;
     }

@@ -9,14 +9,14 @@
 namespace Incraigulous\ContentfulSDK;
 
 abstract class SDKBase {
-    protected $spaceId;
     protected $accessToken;
+    protected $spaceId;
     protected $cacher;
 
-    function __construct($spaceId, $accessToken, CacherInterface $cacher = null)
+    function __construct($accessToken, $spaceId = null, CacherInterface $cacher = null)
     {
-        $this->spaceId = $spaceId;
         $this->accessToken = $accessToken;
+        $this->spaceId = $spaceId;
         $this->cacher;
     }
 }

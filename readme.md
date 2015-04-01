@@ -28,19 +28,30 @@ Create a new instance of the delivery API:
 
 `````
     use Incraigulous\ContentfulSDK\DeliverySDK;
-    $deliverySDK = new DeliverySDK('SPACE_ID', 'TOKEN');
+    $deliverySDK = new DeliverySDK('TOKEN', 'SPACE_ID', $cacher);
 `````
-
-**Space ID:** The space to use for calls made by the instance. To use multiple spaces, you should use multiple SDK instances.
 
 **Token:** Your Contentful API token. You can generate this using the Contentful control panel.
 
+**Space ID:** *(optional)* The space to use for calls made by the instance. To use multiple spaces, you should use multiple SDK instances. If you don't provide a space ID, you'll only be able to use the `spaces` resource.
+
+**Cacher:** *(optional, Incraigulous\ContentfulSDK\CacherInterface Implementation)* An object to handle caching. This is optional (and easy to implement), so don't let it scare you off. Check out the Caching section for more details.
+
+
 ####Spaces
 
-#####Getting the current space
+#####Getting all spaces space
 
 `````
 $result = $deliverySDK->spaces()->get();
+`````
+
+#####Getting a space
+
+`````
+$result = $deliverySDK->spaces()
+				->find('SPACE_ID')
+				->get();
 `````
 
 ####Content Types
@@ -48,7 +59,9 @@ $result = $deliverySDK->spaces()->get();
 #####Getting a content type
 
 `````
-$result = $deliverySDK->contentTypes('PAGE_ID')->get();
+$result = $deliverySDK->contentTypes()
+				->find('CONTENT_TYPE_ID')
+				->get();
 `````
 
 #####Searching content types
@@ -187,15 +200,54 @@ Create a new instance of the delivery API:
 
 `````
     use Incraigulous\ContentfulSDK\DeliverySDK;
-    $managementSDK = new ManagementSDK('SPACE_ID', 'TOKEN');
+    $managementSDK = new ManagementSDK('TOKEN', 'SPACE_ID');
 `````
 
-**Space ID:** The space to use for calls made by the instance. To use multiple spaces, you should use multiple SDK instances.
-
 **Token:** Your Contentful OAuth token.
+
+**Space ID:** *(optional)* The space to use for calls made by the instance. To use multiple spaces, you should use multiple SDK instances. If you don't provide a space ID, you'll only be able to use the `spaces` resource.
+
+>Note that there is a third parameter for the cacher. Management API calls are not currently cached to make sure that `GET` requests are up to date to avoid conflicts when updating records. I still wanted to allow a place to provide the cacher just in case I decide to use it for anything. Feel free to ignore it, or provide a cacher for good measure.
+
+####Using Builder Objects
+Contentful payloads can be pretty complex, especially when working with `entries` or `assets`. Payload builders are here to help! They're optional helper classes to assist with building payloads. They take care of buildng payload arrays for you and let you know what options you have along the way. They're especially helpful if your IDE has provides hinting.
+
+If you don't want to use them, don't use them. The SDK parases the payload looking for builder objects and turns them into arrays before passing requests on to contentful. As such, you are free to use standard arrays, or arrays made up of payload builder objects.
+
+The following examples will assume you're using the builders you need:
+
+`````
+use Incraigulous\ContentfulSDK\PayloadBuilders\Entry;
+use Incraigulous\ContentfulSDK\PayloadBuilders\Field;
+use Incraigulous\ContentfulSDK\PayloadBuilders\Space;
+...
+`````
 
 ####Spaces
 
 #####Creating a space
 
+`````
+$result = $managementSDK->spaces()
+				->post(
+					new Space('My Space')
+				);
+`````
+
+#####Updating a space
+
+`````
+$space = $managementSDK->spaces()
+             ->find('SPACE_ID')
+             ->get();
+             
+$space['name'] = 'Outer Space';
+$result = $managementSDK->spaces()->put('SPACE_ID', $space);
+`````
+
+#####Deleting a space
+
+`````
+$result = $managementSDK->spaces()->delete('ckyiajbf72cn');
+`````
 

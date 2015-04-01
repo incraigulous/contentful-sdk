@@ -4,7 +4,7 @@ namespace Incraigulous\ContentfulSDK;
 use GuzzleHttp;
 
 class ManagementClient extends ClientBase {
-    protected $endpointBase = 'https://api.contentful.com/spaces/';
+    protected $endpointBase = 'https://api.contentful.com/spaces';
 
     /**
      * Get the content type for post/put requests.

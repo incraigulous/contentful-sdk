@@ -13,7 +13,7 @@ abstract class ResourceBase {
     protected $requestDecorator;
     protected $cacher;
 
-    function __construct($spaceId, $accessToken, CacherInterface $cacher = null)
+    function __construct($accessToken, $spaceId = null, CacherInterface $cacher = null)
     {
         $this->spaceId = $spaceId;
         $this->accessToken = $accessToken;
@@ -24,8 +24,8 @@ abstract class ResourceBase {
     /**
      * Init and store a new client and decorator.
      */
-    function refresh() {
-        $this->client = new $this->clientClassName($this->spaceId, $this->accessToken, $this->cacher);
+    protected function refresh() {
+        $this->client = new $this->clientClassName($this->accessToken, $this->spaceId, $this->cacher);
         $this->requestDecorator = new RequestDecorator();
         $this->requestDecorator->setResource($this->resourceName);
     }
