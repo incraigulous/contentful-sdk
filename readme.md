@@ -181,19 +181,21 @@ I've included a cacher interface. Don't worry, it only requires four methods. Ju
 
 ###Management API
 
+####Initializing
+
+Create a new instance of the delivery API:
+
+`````
+    use Incraigulous\ContentfulSDK\DeliverySDK;
+    $managementSDK = new ManagementSDK('SPACE_ID', 'TOKEN');
+`````
+
+**Space ID:** The space to use for calls made by the instance. To use multiple spaces, you should use multiple SDK instances.
+
+**Token:** Your Contentful OAuth token.
+
 ####Spaces
 
+#####Creating a space
 
 
-####Entries
-
-`````
-$result = $managementSDK->entries()->contentType('CONTENT_TYPE')->post(new Entry(
-            [
-                (new Field('contentList'))->addLink('ENTRY_ID')->addLink('ANOTHER_ENTRY_ID'), //Content List Field
-                (new Field('title'))->addLanguage('en-US', 'Contact'), //Text Field
-                new Field('primaryContent', 'Call us!'), //Text field without specifying a language
-                new Field('tags', ['testtag', 'info']) //Symbol list field
-            ]
-        ));
-`````
