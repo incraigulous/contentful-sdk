@@ -9,6 +9,8 @@
 namespace Incraigulous\ContentfulSDK\Tests;
 
 use GuzzleHttp\Post\PostBody;
+use Incraigulous\ContentfulSDK\DeliveryClient;
+use Incraigulous\ContentfulSDK\ManagementClient;
 use Incraigulous\ContentfulSDK\ManagementResources\Assets as ManagementAssets;
 use Incraigulous\ContentfulSDK\Resources\Assets;
 use Incraigulous\ContentfulSDK\ManagementResources\Entries as ManagementEntries;
