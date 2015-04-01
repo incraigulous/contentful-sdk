@@ -85,7 +85,7 @@ $result = $deliverySDK->contentTypes()
 				->get();
 `````
 
-See [Search Parameters](#search) to learn how to search for specific things.
+See [Search Parameters](#search-parameters) to learn how to search for specific things.
 
 ####Entries
 
