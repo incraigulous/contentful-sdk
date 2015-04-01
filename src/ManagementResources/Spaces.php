@@ -10,7 +10,7 @@ class Spaces extends ResourceBase {
     /**
      * Init and store a new client and decorator.
      */
-    protected function refresh() {
+    function refresh() {
         $this->client = new $this->clientClassName($this->accessToken, null, $this->cacher);
         $this->requestDecorator = new RequestDecorator();
         $this->requestDecorator->setResource($this->resourceName);

@@ -42,7 +42,7 @@ class ContentTypeValidation implements PayloadBuilderInterface {
     }
 
     /**
-     * Validates that the value of a field is within a range. It's defined specifying the min and max values of that range.
+     * Validates that the value of a field is within a date range. It's defined specifying the min and max values of that range.
      * @param null $min
      * @param null $max
      * @return $this
