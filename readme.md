@@ -248,6 +248,6 @@ $result = $managementSDK->spaces()->put('SPACE_ID', $space);
 #####Deleting a space
 
 `````
-$result = $managementSDK->spaces()->delete('ckyiajbf72cn');
+$result = $managementSDK->spaces()->delete('SPACE_ID');
 `````
 
