@@ -493,7 +493,7 @@ $asset = $managementSDK->assets()->find('ASSET_ID')->get();
 $result = $managementSDK->assets()->publish('ASSET_ID', $asset);
 `````
 
-#####Publishing an asset
+#####Unpublishing an asset
 
 `````
 $asset = $managementSDK->assets()->find('ASSET_ID')->get();
