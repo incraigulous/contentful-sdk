@@ -4,6 +4,8 @@
 
 A modern PHP SDK for Contentful delivery and management APIs.
 
+>**Note:** This package was just released. It has been unit tested and I've tested every call I could think of. I believe everything is stable and working. I'll bump it up to 1.0 as soon as I (or someone else) has a chance to try it out in production. The API should be stable, so try it out and be sure to report any bugs!
+
 ###This is a framework agnostic PHP SDK. 
 
 ####Looking for the Laravel Toolkit?
@@ -384,14 +386,161 @@ define('CONTENTFUL_DEFAULT_LANGUAGE', 'de-DE');
 
 #####Creating an entry with a linked field
 
+`````
+$result = $managementSDK->entries()->contentType('CONTENT_TYPE_ID')->post(new Entry([
+            new EntryField('title', 'Hello, World!'),
+           (new EntryField('body'))->addLanguage('en-US', 'Bacon is healthy!'),
+           (new EntryField('sidebar'))->addMultiLink('ENTRY_ID', 'Entry')->addMultiLink('ENTRY_ID', 'Entry'),
+           (new EntryField('author'))->addLink('ENTRY_ID', 'Entry')
+        ]));
+`````
+
 
 #####Updating an entry
 
 ``````
 $entry = $managementSDK->entries()
-					->find('2PbyBS9GbYc0m0ciOkqY6Y')
+					->find('ENTRY_ID')
 					->get();
 
 $entry['fields']['title'] = new EntryField('title', 'Cheese is Healthy!');
-$result = $managementSDK->entries()->put('2PbyBS9GbYc0m0ciOkqY6Y', $entry);
+$result = $managementSDK->entries()->put('ENTRY_ID', $entry);
 ``````
+
+#####Publishing an entry
+
+``````
+$entry = $managementSDK->entries()->find('ENTRY_ID')->get();
+$result = $managementSDK->entries()->publish('ENTRY_ID', $entry);
+``````
+
+#####Unpublishing an entry
+
+``````
+$entry = $managementSDK->entries()->find('ENTRY_ID')->get();
+$result = $managementSDK->entries()->unpublish('ENTRY_ID', $entry);
+``````
+
+#####Archiving an entry
+
+``````
+$result = $managementSDK->entries()->archive('ENTRY_ID');
+``````
+
+#####Unarchiving an entry
+
+``````
+$result = $managementSDK->entries()->unarchive('ENTRY_ID');
+``````
+
+#####Deleting an entry
+
+``````
+$result = $managementSDK->entries()->delete('ENTRY_ID');
+``````
+
+#####Entry Payload Builder
+
+Parameters | Description
+------------- | -------------
+fields  | An array of entry fields. Can be a pure array or an array of EntryField builder objects.
+
+#####Entry Field Payload Builder
+
+Parameters | Description
+------------- | -------------
+name | The field name
+content  | The field content
+language  | (default: en-US or CONTENTFUL_DEFAULT_LANGUAGE constant) The default field language.
+
+Methods | Parameters | Description
+------------- | ------------- | -------------
+addLanguage | languageKey | Add a language to the field.
+addLink | id, linkType (default: Entry), languageKey (default: en-US or CONTENTFUL\_DEFAULT\_LANGUAGE constant) | Create a relationship to a resource.
+addMultiLink | id, linkType (default: Entry), languageKey (default: en-US or CONTENTFUL\_DEFAULT\_LANGUAGE constant) | Create relationships to resources.
+
+####Assets
+
+#####Creating an asset
+
+`````
+$result = $managementSDK->assets()->post(new Asset([
+                    new AssetField('title', 'Bacon Pancakes'),
+                    new File("image/jpeg", "example.jpg", "https://example.com/example.jpg")
+                ])
+        );
+`````
+
+#####Updating an asset
+
+`````
+$asset = $managementSDK->assets()->find('ASSET_ID')->get();
+
+$asset['fields']['file'] = new File("image/jpeg", "example.jpg", "https://example.com/example.jpg");
+$result = $managementSDK->assets()->put('ASSET_ID', $asset);
+`````
+
+#####Processing an asset
+
+`````
+$result = $managementSDK->assets()->process('ASSET_ID');
+`````
+
+#####Publishing an asset
+
+`````
+$asset = $managementSDK->assets()->find('ASSET_ID')->get();
+$result = $managementSDK->assets()->publish('ASSET_ID', $asset);
+`````
+
+#####Publishing an asset
+
+`````
+$asset = $managementSDK->assets()->find('ASSET_ID')->get();
+$result = $managementSDK->assets()->unpublish('ASSET_ID', $asset);
+`````
+
+#####Archiving an asset
+
+`````
+$result = $managementSDK->assets()->archive('ASSET_ID');
+`````
+
+#####Unarchiving an asset
+
+`````
+$result = $managementSDK->assets()->unarchive('ASSET_ID');
+`````
+
+#####Deleting an asset
+
+`````
+$result = $managementSDK->assets()->delete('ASSET_ID');
+`````
+#####Asset Payload Builder
+
+Parameters | Description
+------------- | -------------
+fields  | An array of asset fields. Can be a pure array or an array of AssetField builder objects.
+
+#####Asset Field Payload Builder
+
+Parameters | Description
+------------- | -------------
+name | The field name
+content  | The field content
+language  | (default: en-US or CONTENTFUL_DEFAULT_LANGUAGE constant) The default field language
+
+Methods | Parameters | Description
+------------- | ------------- | -------------
+addLanguage | languageKey | Add a language to the field.
+
+#####File Payload Builder
+
+Parameters | Description
+------------- | -------------
+contentType | The file content type
+fileName  | The file name
+upload  | The upload path
+language  | (default: en-US or CONTENTFUL_DEFAULT_LANGUAGE constant) The language
+

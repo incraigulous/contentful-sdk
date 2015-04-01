@@ -7,6 +7,7 @@ class EntryField implements PayloadBuilderInterface {
     protected $language;
     protected $languages;
     protected $links;
+    protected $link;
 
     function __construct($name, $content = null, $language = null)
     {
@@ -42,7 +43,27 @@ class EntryField implements PayloadBuilderInterface {
     }
 
     /**
-     * Create a relationship to a resource.
+     * Create relationships to a list of resources.
+     * @param $id
+     * @param string $linkType
+     * @param null $languageKey
+     * @return $this
+     */
+    function addMultiLink($id, $linkType = 'Entry', $languageKey = null) {
+        if (!$languageKey) {
+            $languageKey = $this->language;
+        }
+        $this->links[$languageKey][] = ['sys' => [
+                    'type' => 'Link',
+                    'linkType' => $linkType,
+                    'id' => $id
+                ]
+        ];
+        return $this;
+    }
+
+    /**
+     * Create relationships to a list of resources.
      * @param $id
      * @param string $linkType
      * @param null $languageKey
@@ -52,11 +73,11 @@ class EntryField implements PayloadBuilderInterface {
         if (!$languageKey) {
             $languageKey = $this->language;
         }
-        $this->links[$languageKey][] = ['sys' => [
-                    'type' => 'Link',
-                    'linkType' => $linkType,
-                    'id' => $id
-                ]
+        $this->link[$languageKey] = ['sys' => [
+            'type' => 'Link',
+            'linkType' => $linkType,
+            'id' => $id
+        ]
         ];
         return $this;
     }
@@ -95,6 +116,8 @@ class EntryField implements PayloadBuilderInterface {
     {
         if ($this->links) {
             return $this->links;
+        } elseif ($this->link) {
+            return $this->link;
         }
         return $this->languages;
     }

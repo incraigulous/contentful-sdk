@@ -7,12 +7,16 @@ class File implements PayloadBuilderInterface {
     protected $upload;
     protected $language;
 
-    function __construct($contentType, $fileName, $upload, $language = 'en-US')
+    function __construct($contentType, $fileName, $upload, $language = null)
     {
         $this->contentType = $contentType;
         $this->fileName = $fileName;
         $this->upload = $upload;
-        $this->language = $language;
+        if (!$language && defined('CONTENTFUL_DEFAULT_LANGUAGE')) {
+            $this->language = CONTENTFUL_DEFAULT_LANGUAGE;
+        } else {
+            $this->language = 'en-US';
+        }
     }
 
     /**
@@ -35,6 +39,6 @@ class File implements PayloadBuilderInterface {
      * @return mixed
      */
     function getKey() {
-        //No key used.
+        return 'file';
     }
 }

@@ -15,7 +15,7 @@ use Incraigulous\ContentfulSDK\PayloadBuilders\ContentType;
 use Incraigulous\ContentfulSDK\PayloadBuilders\ContentTypeField;
 use Incraigulous\ContentfulSDK\PayloadBuilders\ContentTypeValidation;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Entry;
-use Incraigulous\ContentfulSDK\PayloadBuilders\Field;
+use Incraigulous\ContentfulSDK\PayloadBuilders\EntryField;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Space;
 use PHPUnit_Framework_TestCase;
 use Incraigulous\ContentfulSDK\ManagementSDK;
@@ -253,22 +253,24 @@ class PayloadTests extends PHPUnit_Framework_TestCase {
         $decorator = (new ManagementSDK('adsf', 'adsf'))->entries()->decorator();
 
         $decorator->setPayload(new Entry([
-            (new Field('title'))->addLanguage('en-US', 'Hello, World!'),
-            (new Field('body'))->addLanguage('en-US', 'Bacon is healthy!'),
-            (new Field('contentList'))->addLink('nice-burger', 'Entry', 'en-US')->addLink('such-dessert', 'Entry', 'en-US')
+            (new EntryField('title'))->addLanguage('en-US', 'Hello, World!'),
+            (new EntryField('body'))->addLanguage('en-US', 'Bacon is healthy!'),
+            (new EntryField('contentList'))->addMultiLink('nice-burger', 'Entry', 'en-US')->addMultiLink('such-dessert', 'Entry', 'en-US')
         ]));
         $payload = $decorator->makePayload();
         $this->assertEquals($expected, json_encode($payload));
     }
 
     function testAssetPayload() {
-        $expected = '{"fields":{"title":{"en-US":"Bacon Pancakes"}},"file":{"en-US":{"contentType":"image/jpeg","fileName":"example.jpg","upload":"https://example.com/example.jpg"}}}';
+        $expected = '{"fields":{"title":{"en-US":"Bacon Pancakes"},"file":{"en-US":{"contentType":"image/jpeg","fileName":"example.jpg","upload":"https://example.com/example.jpg"}}}}';
         $decorator = (new ManagementSDK('adsf', 'adsf'))->entries()->decorator();
 
         $decorator->setPayload(
-            new Asset([
-                new AssetField('title', 'Bacon Pancakes'),
-            ], new File("image/jpeg", "example.jpg", "https://example.com/example.jpg"))
+                new Asset([
+                    new AssetField('title', 'Bacon Pancakes'),
+                    new File("image/jpeg", "example.jpg", "https://example.com/example.jpg")
+                ]
+            )
         );
         $payload = $decorator->makePayload();
         $this->assertEquals($expected, json_encode($payload, JSON_UNESCAPED_SLASHES));
