@@ -361,3 +361,37 @@ dateRange | min (default: null), max (default: null) | Validates that the value 
 assetFileSize | min (default: null), max (default: null) | Validates that the size of an asset is within a range.
 assetImageDimensions | height (default: null), width (default: null) | Validates that the dimensions of an image are within a range.
 
+####Entries
+
+#####Creating an entry
+
+`````
+$result = $managementSDK->entries()->contentType('CONTENT_TYPE_ID')->post(
+            new Entry([
+                    new EntryField('title', 'Hello, World!'), //Create a field with only the default language
+                    (new EntryField('body'))->addLanguage('en-US', 'Bacon is healthy!') //Add a language to a field.
+                ])
+        );
+`````
+
+Note that you are able to add content to a field without specifying a language. The default default language is `en-US`. To specify a different default language, define a `CONTENTFUL_DEFAULT_LANGUAGE` constant. 
+
+Example: 
+
+`````
+define('CONTENTFUL_DEFAULT_LANGUAGE', 'de-DE'); 
+`````
+
+#####Creating an entry with a linked field
+
+
+#####Updating an entry
+
+``````
+$entry = $managementSDK->entries()
+					->find('2PbyBS9GbYc0m0ciOkqY6Y')
+					->get();
+
+$entry['fields']['title'] = new EntryField('title', 'Cheese is Healthy!');
+$result = $managementSDK->entries()->put('2PbyBS9GbYc0m0ciOkqY6Y', $entry);
+``````
