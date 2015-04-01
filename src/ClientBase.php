@@ -5,8 +5,8 @@ use GuzzleHttp;
 
 abstract class ClientBase {
     protected $client;
-    private $spaceId;
-    private $accessToken;
+    protected $spaceId;
+    protected $accessToken;
     protected $endpointBase;
     protected $cacher;
 
