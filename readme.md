@@ -180,7 +180,7 @@ within, [within]  | [within] | **Within:** Search for location within bounding r
 
 #####Caching
 
-I recommend you cache all Delivery API GET request results (i.e. Memcached or Redis). If you're working with a low traffic website you might be able to get by without caching, but caching will greatly improve performance in any case.
+I recommend you cache all Delivery API GET request results (i.e. Memcached or Redis). If you're working with a low traffic website you might be able to get by without caching, but it will greatly improve performance in any case.
 
 One way would be to wrap all your API GET calls in a cache check, but that could lead to code duplication. Lucky for you, there's a better way.
 
