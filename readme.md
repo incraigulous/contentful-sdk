@@ -44,7 +44,7 @@ Create a new instance of the delivery API:
 
 ####Spaces
 
-#####Getting all spaces space
+#####Getting all spaces
 
 `````
 $result = $deliverySDK->spaces()->get();
