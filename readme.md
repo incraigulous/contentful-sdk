@@ -544,9 +544,9 @@ fileName  | The file name
 upload  | The upload path
 language  | (default: en-US or CONTENTFUL_DEFAULT_LANGUAGE constant) The language
 
-####Webhooks
+#####Webhooks
 
-#####Creating a webhook
+######Creating a webhook
 
 `````
 $result = $managementSDK->webhooks()->post(
@@ -554,7 +554,7 @@ $result = $managementSDK->webhooks()->post(
 		);
 `````
 
-#####Updating a webhook, or creating new a webhook with a set ID
+######Updating a webhook, or creating new a webhook with a set ID
 
 `````
 $result = $managementSDK->webhooks()->put('WEBHOOK_ID', 
@@ -562,7 +562,7 @@ $result = $managementSDK->webhooks()->put('WEBHOOK_ID',
 		);
 `````
 
-####Deleting a webhook
+#####Deleting a webhook
 `````
 $result = $managementSDK->webhooks()->delete('WEBHOOK_ID');
 `````
