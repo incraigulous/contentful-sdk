@@ -39,7 +39,7 @@ Create a new instance of the delivery API:
 
 **Space ID:** *(optional)* The space to use for calls made by the instance. To use multiple spaces, you should use multiple SDK instances. If you don't provide a space ID, you'll only be able to use the `spaces` resource.
 
-**Cacher:** *(optional, Incraigulous\ContentfulSDK\CacherInterface Implementation)* An object to handle caching. This is optional (and easy to implement), so don't let it scare you off. Check out the Caching section for more details.
+**Cacher:** *(optional, Incraigulous\ContentfulSDK\CacherInterface Implementation)* An object to handle caching. This is optional (and easy to implement), so don't let it scare you off. Check out the [caching](https://github.com/incraigulous/contentful-sdk/blob/master/readme.md#caching) section for more details.
 
 
 ####Spaces
