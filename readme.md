@@ -24,7 +24,7 @@ composer require incraigulous/contentful-sdk
 
 ##How to use it
 
-###Delivery API
+###Content Delivery API
 
 ####Initializing
 
