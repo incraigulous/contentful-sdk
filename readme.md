@@ -550,7 +550,7 @@ language  | (default: en-US or CONTENTFUL_DEFAULT_LANGUAGE constant) The languag
 
 `````
 $result = $managementSDK->webhooks()->post(
-			new Webhook($this->option('http://www.example.com/')
+			new Webhook('http://www.example.com/')
 		);
 `````
 
@@ -558,7 +558,7 @@ $result = $managementSDK->webhooks()->post(
 
 `````
 $result = $managementSDK->webhooks()->put('WEBHOOK_ID', 
-			new Webhook($this->option('http://www.example.com/')
+			new Webhook('http://www.example.com/')
 		);
 `````
 
@@ -568,3 +568,8 @@ $result = $managementSDK->webhooks()->put('WEBHOOK_ID',
 $result = $managementSDK->webhooks()->delete('WEBHOOK_ID');
 `````
 
+#####Webhook Payload Builder
+
+Parameters | Description
+------------- | -------------
+url | The callback URL for the webhook
