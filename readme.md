@@ -573,3 +573,20 @@ $result = $managementSDK->webhooks()->delete('WEBHOOK_ID');
 Parameters | Description
 ------------- | -------------
 url | The callback URL for the webhook
+
+###What's not implemented?
+
+-**[Synchronization](https://www.contentful.com/developers/documentation/content-delivery-api/#sync)**. I current have no plans to implement it. If feel that caching is better suited to a PHP environment. 
+-**The Preview API**. I do plan on implementing it as I have need for it.
+
+###Contributing
+
+**See a typo or a bug?** Make a pull request. 
+**What a new feature?** Make a pull request. 
+**Want a new feature and don't know how to build it?** You can always ask, I might be game if I think it's a good enough idea.
+
+####How you can help
+I'm going to make issues for features that I would like implemented. I'll assign them to myself if I plan to take to build them out. If I leave them unasigned, please step up and take it!
+
+
+
