@@ -144,7 +144,6 @@ $result = $deliverySDK->assets()
               ->get();
 `````
 
-<anchor name="search"></div>
 ####Search Parameters 
 
 Searching is easy! Just call one or more of the following methods on your resource. The use of where() and limit() on the assets resource as shown above is a great example of searching. 
