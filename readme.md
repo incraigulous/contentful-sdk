@@ -238,10 +238,6 @@ $result = $managementSDK->spaces()
 				);
 `````
 
-######Space Payload Builder
-**Parameters**<br />
-**Name:** The space name.
-
 #####Updating a space
 
 `````
