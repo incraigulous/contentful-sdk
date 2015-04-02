@@ -4,7 +4,7 @@
 
 A modern PHP SDK for Contentful delivery and management APIs.
 
->**Note:** This package was just released. It has been unit tested and I've tested every call I could think of. I believe everything is stable and working. I'll bump it up to 1.0 as soon as I (or someone else) has a chance to try it out in production. The API should be stable, so try it out and be sure to report any bugs!
+>**Note:** This package was just released. It has been unit tested and I've manually tested every call I could think of. I believe everything is stable and working. I'll bump it up to 1.0 as soon as I (or someone else) has a chance to try it out in production. The API should be stable, so try it out and be sure to report any bugs!
 
 ###This is a framework agnostic PHP SDK. 
 
