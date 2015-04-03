@@ -1,5 +1,3 @@
-> ***Pardon my mess! Documenting in progress...***
-
 # Contentful SDK for PHP
 
 A modern PHP SDK for Contentful delivery and management APIs.
