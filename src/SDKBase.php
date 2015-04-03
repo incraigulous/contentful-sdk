@@ -17,6 +17,6 @@ abstract class SDKBase {
     {
         $this->accessToken = $accessToken;
         $this->spaceId = $spaceId;
-        $this->cacher;
+        $this->cacher = $cacher;
     }
 }

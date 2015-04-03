@@ -3,6 +3,7 @@
 namespace Incraigulous\ContentfulSDK\Resources;
 
 use Incraigulous\ContentfulSDK\RequestDecorator;
+use Incraigulous\ContentfulSDK\CacherInterface;
 
 abstract class ResourceBase {
     protected $clientClassName = 'Incraigulous\ContentfulSDK\DeliveryClient';
@@ -17,7 +18,7 @@ abstract class ResourceBase {
     {
         $this->spaceId = $spaceId;
         $this->accessToken = $accessToken;
-        $this->cacher;
+        $this->cacher = $this->cacher;
         $this->refresh();
     }
 
