@@ -211,7 +211,7 @@ Create a new instance of the delivery API:
 >Note that there is a third parameter for the cacher. Management API calls are not currently cached to make sure that `GET` requests are up to date to avoid conflicts when updating records. I still wanted to allow a place to provide the cacher just in case I decide to use it for anything. Feel free to ignore it, or provide a cacher for good measure.
 
 ####Using Builder Objects
-Contentful payloads can be complex, especially when working with `entries` or `assets`. Payload builders are here to help! They're optional helper classes to assist with building payloads. They take care of building payload arrays for you and let you know what options you have along the way. They're especially helpful if your IDE has provides hinting.
+Contentful payloads can be complex, especially when working with `entries` or `assets`. Payload builders are here to help! They're optional helper classes to assist with building payloads. They take care of building payload arrays for you and let you know what options you have along the way. They're especially helpful if your IDE has hinting.
 
 If you don't want to use them, don't use them. The SDK parases the payload looking for builder objects and turns them into arrays before passing requests on to Contentful. As such, you are free to use standard arrays, or arrays made up of payload builder objects.
 
