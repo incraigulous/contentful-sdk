@@ -1,5 +1,6 @@
 {
     "name": "incraigulous/contentful-sdk",
+    "license": "MIT",
     "require": {
         "php": ">=5.4.0",
         "guzzlehttp/guzzle": "5.1.*"
