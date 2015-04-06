@@ -1,4 +1,6 @@
-# Contentful SDK for PHP
+[![Latest Stable Version](https://poser.pugx.org/incraigulous/contentful-sdk/v/stable.svg)](https://packagist.org/packages/incraigulous/contentful-sdk) [![Total Downloads](https://poser.pugx.org/incraigulous/contentful-sdk/downloads.svg)](https://packagist.org/packages/incraigulous/contentful-sdk) [![Latest Unstable Version](https://poser.pugx.org/incraigulous/contentful-sdk/v/unstable.svg)](https://packagist.org/packages/incraigulous/contentful-sdk) [![Daily Downloads](https://poser.pugx.org/incraigulous/contentful-sdk/d/daily.png)](https://packagist.org/packages/incraigulous/contentful-sdk) [![Build Status](https://travis-ci.org/incraigulous/contentful-sdk.svg?branch=master)](https://travis-ci.org/incraigulous/contentful-sdk)
+
+# Contentful SDK for PHP <a href="https://travis-ci.org/incraigulous/contentful-sdk">
 
 A modern PHP SDK for Contentful delivery and management APIs.
 
