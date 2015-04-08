@@ -28,7 +28,7 @@ composer require "incraigulous/contentful-sdk:0.0.*"
 
 ####Initializing
 
-Create a new instance of the delivery API:
+Create a new instance of the delivery SDK:
 
 `````
     use Incraigulous\ContentfulSDK\DeliverySDK;
@@ -199,7 +199,7 @@ I've included a cacher interface. Don't worry, it only requires four methods. Ju
 
 ####Initializing
 
-Create a new instance of the Management API:
+Create a new instance of the management SDK:
 
 `````
     use Incraigulous\ContentfulSDK\ManagementSDK;
