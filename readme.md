@@ -19,7 +19,7 @@ A modern PHP SDK for Contentful delivery and management APIs.
 Install via composer by running: 
 
 `````
-composer require incraigulous/contentful-sdk
+composer require "incraigulous/contentful-sdk:0.0.*"
 `````
 
 ##How to use it
