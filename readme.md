@@ -199,10 +199,10 @@ I've included a cacher interface. Don't worry, it only requires four methods. Ju
 
 ####Initializing
 
-Create a new instance of the delivery API:
+Create a new instance of the Management API:
 
 `````
-    use Incraigulous\ContentfulSDK\DeliverySDK;
+    use Incraigulous\ContentfulSDK\ManagementSDK;
     $managementSDK = new ManagementSDK('TOKEN', 'SPACE_ID');
 `````
 
