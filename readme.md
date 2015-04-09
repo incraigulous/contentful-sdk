@@ -221,7 +221,7 @@ The following examples will assume you're using the builders you need:
 
 `````
 use Incraigulous\ContentfulSDK\PayloadBuilders\Entry;
-use Incraigulous\ContentfulSDK\PayloadBuilders\Field;
+use Incraigulous\ContentfulSDK\PayloadBuilders\EntryField;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Space;
 ...
 `````
