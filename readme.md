@@ -379,6 +379,17 @@ Example:
 define('CONTENTFUL_DEFAULT_LANGUAGE', 'de-DE'); 
 `````
 
+#####Creating an entry while specifying an ID
+
+`````
+$result = $managementSDK->entries()->put('MY_CUSTOM_ID', 
+		new Entry([
+                    new EntryField('title', 'Hello, World!'),
+                    (new EntryField('body'))->addLanguage('en-US', 'Bacon is healthy!')
+                ])
+        );
+`````
+
 #####Creating an entry with a linked field
 
 `````
@@ -460,6 +471,16 @@ addMultiLink | id, linkType (default: Entry), languageKey (default: en-US or CON
 
 `````
 $result = $managementSDK->assets()->post(new Asset([
+                    new AssetField('title', 'Bacon Pancakes'),
+                    new File("image/jpeg", "example.jpg", "https://example.com/example.jpg")
+                ])
+        );
+`````
+
+#####Creating an asset while specifying an ID
+
+`````
+$result = $managementSDK->assets()->put('MY_CUSTOM_ID', new Asset([
                     new AssetField('title', 'Bacon Pancakes'),
                     new File("image/jpeg", "example.jpg", "https://example.com/example.jpg")
                 ])
@@ -571,8 +592,9 @@ url | The callback URL for the webhook
 
 ###What's not implemented?
 
-- **[Synchronization](https://www.contentful.com/developers/documentation/content-delivery-api/#sync)**. I current have no plans to implement it. If feel that caching is better suited to a PHP environment. 
+- **[Synchronization](https://www.contentful.com/developers/documentation/content-delivery-api/#sync)**. There is an open issue to implement the Sync endpoint. Take it if you want it.
 - **The Preview API**. I do plan on implementing it as I have need for it.
+- Organizations. I plan on adding organization support soon, but I haven't decided on the best way to work it in yet.
 
 ###Contributing
 
