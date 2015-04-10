@@ -23,7 +23,7 @@ class Assets extends ResourceBase {
             $language = 'en-US';
         }
         $this->requestDecorator->setId($id  . '/files/' . $language . '/process');
-        $result = $this->client->delete($this->requestDecorator->makeResource(), $this->requestDecorator->makeHeaders());
+        $result = $this->client->put($this->requestDecorator->makeResource(), $this->requestDecorator->makePayload(), $this->requestDecorator->makeHeaders());
         $this->refresh();
         return $result;
     }
