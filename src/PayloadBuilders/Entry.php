@@ -21,7 +21,7 @@ class Entry implements PayloadBuilderInterface {
             if (is_object($field)) {
                 $new[] = $field;
             } else {
-                $new[] = new Field($name, $field);
+                $new[] = new EntryField($name, $field);
             }
         }
         return $new;
