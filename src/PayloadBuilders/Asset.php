@@ -25,7 +25,7 @@ class Asset implements PayloadBuilderInterface {
                 if (array_key_exists('fileName', $field)) {
                     $new[] = new File($field['contentType'], $field['fileName'], $field['upload'], $field['language']);
                 } else {
-                    $new[] = new Field($name, $field);
+                    $new[] = new AssetField($name, $field);
                 }
             }
         }
