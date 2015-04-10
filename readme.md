@@ -594,7 +594,7 @@ url | The callback URL for the webhook
 
 - **[Synchronization](https://www.contentful.com/developers/documentation/content-delivery-api/#sync)**. There is an open issue to implement the Sync endpoint. Take it if you want it.
 - **The Preview API**. I do plan on implementing it as I have need for it.
-- Organizations. I plan on adding organization support soon, but I haven't decided on the best way to work it in yet.
+- **Organizations**. I plan on adding organization support soon, but I haven't decided on the best way to work it in yet.
 
 ###Contributing
 
