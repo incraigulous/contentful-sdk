@@ -81,8 +81,7 @@ abstract class ClientBase {
      */
     function build_url($resource, array $query = array()) {
         $url = $this->getEndpoint();
-        if ($resource && $this->spaceId) $url .= '/';
-        if ($resource) $url .= $resource;
+        if ($resource) $url .= '/' . $resource;
         if (!empty($query)) $url .= '?' . http_build_query($query);
         return $url;
     }

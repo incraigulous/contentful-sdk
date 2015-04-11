@@ -102,4 +102,56 @@ class ClientTests extends PHPUnit_Framework_TestCase {
         $response = $resource->unpublish('asdfasdf', 123);
         $this->assertEquals('200', $response->getStatusCode());
     }
+
+    public function testGetBearer() {
+        $client = new ManagementClient('accessToken', 'space');
+        $bearer = $client->getBearer();
+        $this->assertEquals(' Bearer accessToken', $bearer);
+
+    }
+
+    public function testGetEndpoint() {
+        $client = new ManagementClient('accessToken', 'space');
+        $endpoint = $client->getEndpoint();
+        $this->assertEquals('https://api.contentful.com/spaces/space', $endpoint);
+    }
+
+    public function testBuildUrl() {
+        //No space, no resource
+        $client = new ManagementClient('accessToken', null);
+        $endpoint = $client->build_url(null, array());
+        $this->assertEquals('https://api.contentful.com/spaces', $endpoint);
+
+        //No space
+        $client = new ManagementClient('accessToken', null);
+        $endpoint = $client->build_url('test', array());
+        $this->assertEquals('https://api.contentful.com/spaces/test', $endpoint);
+
+        //Space and resource
+        $client = new ManagementClient('accessToken', 'spaceId');
+        $endpoint = $client->build_url('test', array());
+        $this->assertEquals('https://api.contentful.com/spaces/spaceId/test', $endpoint);
+
+        //Space, resource and query string
+        $client = new ManagementClient('accessToken', 'spaceId');
+        $endpoint = $client->build_url('test', array('query' => 'value'));
+        $this->assertEquals('https://api.contentful.com/spaces/spaceId/test?query=value', $endpoint);
+
+        //Space, resource and two query strings
+        $client = new ManagementClient('accessToken', 'spaceId');
+        $endpoint = $client->build_url('test', array('query' => 'value', 'query2' => 'value2'));
+        $this->assertEquals('https://api.contentful.com/spaces/spaceId/test?query=value&query2=value2', $endpoint);
+    }
+
+    function testBuildCacheKey() {
+        $client = new ManagementClient('accessToken', 'spaceId');
+        $key = $client->buildCacheKey('method', 'resource', 'url', array('headers'), array('query'));
+        $this->assertNotNull($key);
+        $key2 = $client->buildCacheKey('1method', '2resource', '3url', array('headers'), array('query'));
+        $this->assertNotEquals($key, $key2);
+        $key3 = $client->buildCacheKey('1method', '2resource', '3url', array('headers'));
+        $this->assertNotEquals($key2, $key3);
+        $key4 = $client->buildCacheKey('method', 'resource', 'url', array('headers'), array('query'));
+        $this->assertEquals($key, $key4);
+    }
 }
