@@ -124,23 +124,23 @@ class ClientTests extends PHPUnit_Framework_TestCase {
 
         //No space
         $client = new ManagementClient('accessToken', null);
-        $endpoint = $client->build_url('test', array());
+        $endpoint = $client->build_url('/test', array());
         $this->assertEquals('https://api.contentful.com/spaces/test', $endpoint);
 
         //Space and resource
         $client = new ManagementClient('accessToken', 'spaceId');
-        $endpoint = $client->build_url('test', array());
-        $this->assertEquals('https://api.contentful.com/spaces/spaceId/test', $endpoint);
+        $endpoint = $client->build_url('entries/test', array());
+        $this->assertEquals('https://api.contentful.com/spaces/spaceId/entries/test', $endpoint);
 
         //Space, resource and query string
         $client = new ManagementClient('accessToken', 'spaceId');
-        $endpoint = $client->build_url('test', array('query' => 'value'));
-        $this->assertEquals('https://api.contentful.com/spaces/spaceId/test?query=value', $endpoint);
+        $endpoint = $client->build_url('entries/test', array('query' => 'value'));
+        $this->assertEquals('https://api.contentful.com/spaces/spaceId/entries/test?query=value', $endpoint);
 
         //Space, resource and two query strings
         $client = new ManagementClient('accessToken', 'spaceId');
-        $endpoint = $client->build_url('test', array('query' => 'value', 'query2' => 'value2'));
-        $this->assertEquals('https://api.contentful.com/spaces/spaceId/test?query=value&query2=value2', $endpoint);
+        $endpoint = $client->build_url('entries/test', array('query' => 'value', 'query2' => 'value2'));
+        $this->assertEquals('https://api.contentful.com/spaces/spaceId/entries/test?query=value&query2=value2', $endpoint);
     }
 
     function testBuildCacheKey() {
