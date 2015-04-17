@@ -18,7 +18,7 @@ abstract class ResourceBase {
     {
         $this->spaceId = $spaceId;
         $this->accessToken = $accessToken;
-        $this->cacher = $this->cacher;
+        $this->cacher = $cacher;
         $this->refresh();
     }
 
