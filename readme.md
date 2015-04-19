@@ -111,10 +111,12 @@ $result = $deliverySDK->entries()
 ######Including linked entries in search results
 
 `````
-$result = $deliverySDK->entries()
-	           ->limitByType('CONTENT TYPE ID')
-	           ->includeLinks(1);
+$result = $deliverySDK
+	->where('sys.id', '=', 'ENTRY ID')
+	->includeLinks(3)
+	->get();
 `````
+
 `includeLinks` takes the number of link levels you want to include.
 
 ####Assets
