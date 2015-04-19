@@ -12,7 +12,7 @@ A modern PHP SDK for Contentful delivery and management APIs.
 
 [Click Here](https://github.com/incraigulous/contentful-laravel) for Laravel facades, a base repository, out-of-the-box caching and cache management, webhook creation by command and more.
 
-> ***New to Contentful?*** Check out their [website](https://www.contentful.com/) and [API documentation](https://www.contentful.com/developers/documentation/content-delivery-api/). 
+> ***New to Contentful?*** Contentful is an API driven CMS. Check out their [website](https://www.contentful.com/) and [API documentation](https://www.contentful.com/developers/documentation/content-delivery-api/). 
 
 ##Installation
 
