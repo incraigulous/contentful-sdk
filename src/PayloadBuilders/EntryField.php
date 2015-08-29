@@ -87,6 +87,10 @@ class EntryField implements PayloadBuilderInterface {
      * @param $content
      */
     protected function parseContent($content) {
+        if(is_bool($content)) {
+            $this->addLanguage($this->language, $content);
+            return;
+        }
         if (!$content) {
             return;
         }
