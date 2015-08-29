@@ -4,8 +4,6 @@
 
 A modern PHP SDK for Contentful delivery and management APIs.
 
->**Note:** This package was just released. It has been unit tested and I've manually tested every call I could think of. I believe everything is stable and working. I'll bump it up to 1.0 as soon as I (or someone else) has a chance to try it out in production. The API should be stable, so try it out and be sure to report any bugs!
-
 ###This is a framework agnostic PHP SDK. 
 
 ####Looking for the Laravel Toolkit?
@@ -594,9 +592,9 @@ url | The callback URL for the webhook
 
 ###What's not implemented?
 
-- **[Synchronization](https://www.contentful.com/developers/documentation/content-delivery-api/#sync)**. There is an open issue to implement the Sync endpoint. Take it if you want it.
-- **The Preview API**. I do plan on implementing it as I have need for it.
-- **Organizations**. I plan on adding organization support soon, but I haven't decided on the best way to work it in yet.
+- **[Synchronization](https://www.contentful.com/developers/documentation/content-delivery-api/#sync)**.
+- **The Preview API**.
+- **Organizations**.
 
 ###Contributing
 
