@@ -61,14 +61,17 @@ abstract class ClientBase {
      * @return mixed
      */
     function get($resource, $query = array(), $headers = array()) {
+
         $url = $this->build_url($resource, $query);
         $key = $this->buildCacheKey('get', $resource, $url, $headers, $query);
         if (($this->cacher) && ($this->cacher->has($key))) return $this->cacher->get($key);
+        //echo $url;exit;
         $result = $this->client->get($url, [
             'headers' => array_merge([
                 'Authorization' => $this->getBearer()
             ], $headers)
-        ])->json();
+        ])->json(['object' => true]);
+
         if ($this->cacher) $this->cacher->put($key, $result);
         return $result;
     }

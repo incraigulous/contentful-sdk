@@ -34,6 +34,12 @@ class Entries extends ResourceBase {
         return $this;
     }
 
+    function limitByLocale($locale)
+    {
+        $this->requestDecorator->addParameter('locale', '=', $locale);
+        return $this;
+    }
+
     /**
      * Include a set number of association/join/relationship levels.
      * @param $levels
