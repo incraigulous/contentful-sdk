@@ -4,10 +4,8 @@ namespace Incraigulous\ContentfulSDK\Resources;
 
 use Incraigulous\ContentfulSDK\ClientBase;
 use Incraigulous\ContentfulSDK\RequestDecorator;
-use Incraigulous\ContentfulSDK\CacherInterface;
 
 abstract class ResourceBase {
-    protected $clientClassName = 'Incraigulous\ContentfulSDK\DeliveryClient';
     protected $resourceName;
     protected $client;
     protected $requestDecorator;
