@@ -22,7 +22,7 @@ class DeliverySDK extends SDKBase {
      */
     function assets()
     {
-        return new Assets($this->accessToken, $this->spaceId, $this->cacher);
+        return new Assets($this->client);
     }
 
     /**
@@ -31,7 +31,7 @@ class DeliverySDK extends SDKBase {
      */
     function contentTypes()
     {
-        return new ContentTypes($this->accessToken, $this->spaceId, $this->cacher);
+        return new ContentTypes($this->client);
     }
 
     /**
@@ -40,7 +40,7 @@ class DeliverySDK extends SDKBase {
      */
     function entries()
     {
-        return new Entries($this->accessToken, $this->spaceId, $this->cacher);
+        return new Entries($this->client);
     }
 
     /**
@@ -49,7 +49,7 @@ class DeliverySDK extends SDKBase {
      */
     function spaces()
     {
-        return new Spaces($this->accessToken, $this->spaceId, $this->cacher);
+        return new Spaces($this->client);
     }
 
 }

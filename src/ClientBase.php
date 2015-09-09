@@ -9,12 +9,14 @@ abstract class ClientBase {
     protected $accessToken;
     protected $endpointBase;
     protected $cacher;
+    protected $assoc = true;
 
-    function __construct($accessToken, $spaceId = null, CacherInterface $cacher = null) {
+    function __construct($accessToken, $spaceId = null, CacherInterface $cacher = null, $assoc = true) {
         $this->accessToken = $accessToken;
         $this->spaceId = $spaceId;
         $this->setClient(new GuzzleHttp\Client());
         $this->cacher = $cacher;
+        $this->assoc = $assoc;
     }
 
     /**
@@ -60,6 +62,7 @@ abstract class ClientBase {
      * @param array $headers
      * @return mixed
      */
+
     function get($resource, $query = array(), $headers = array()) {
         $url = $this->build_url($resource, $query);
         $key = $this->buildCacheKey('get', $resource, $url, $headers, $query);
@@ -68,7 +71,7 @@ abstract class ClientBase {
             'headers' => array_merge([
                 'Authorization' => $this->getBearer()
             ], $headers)
-        ])->json();
+        ])->json(['object' => !$this->assoc]);
         if ($this->cacher) $this->cacher->put($key, $result);
         return $result;
     }

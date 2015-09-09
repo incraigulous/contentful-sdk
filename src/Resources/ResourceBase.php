@@ -2,23 +2,19 @@
 
 namespace Incraigulous\ContentfulSDK\Resources;
 
+use Incraigulous\ContentfulSDK\ClientBase;
 use Incraigulous\ContentfulSDK\RequestDecorator;
 use Incraigulous\ContentfulSDK\CacherInterface;
 
 abstract class ResourceBase {
     protected $clientClassName = 'Incraigulous\ContentfulSDK\DeliveryClient';
     protected $resourceName;
-    protected $spaceId;
-    protected $accessToken;
     protected $client;
     protected $requestDecorator;
-    protected $cacher;
 
-    function __construct($accessToken, $spaceId = null, CacherInterface $cacher = null)
+    function __construct(ClientBase $client)
     {
-        $this->spaceId = $spaceId;
-        $this->accessToken = $accessToken;
-        $this->cacher = $cacher;
+        $this->client = $client;
         $this->refresh();
     }
 
@@ -26,7 +22,6 @@ abstract class ResourceBase {
      * Init and store a new client and decorator.
      */
     function refresh() {
-        $this->client = new $this->clientClassName($this->accessToken, $this->spaceId, $this->cacher);
         $this->requestDecorator = new RequestDecorator();
         $this->requestDecorator->setResource($this->resourceName);
     }

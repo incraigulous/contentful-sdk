@@ -24,6 +24,17 @@ class Entries extends ResourceBase {
     }
 
     /**
+     * Target locale
+     * @param $locale
+     * @return $this
+     */
+    function limitByLocale($locale)
+    {
+        $this->requestDecorator->addParameter('locale', '=', $locale);
+        return $this;
+    }
+
+    /**
      * Target content type.
      * @param $contentType
      * @return $this
