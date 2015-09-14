@@ -1,7 +1,10 @@
 <?php
 namespace Incraigulous\ContentfulSDK\Tests;
 
+use Incraigulous\ContentfulSDK\DeliveryClient;
+use Incraigulous\ContentfulSDK\ManagementClient;
 use Incraigulous\ContentfulSDK\ManagementResources\Assets as ManagementAssets;
+use Incraigulous\ContentfulSDK\PreviewClient;
 use Incraigulous\ContentfulSDK\Resources\Assets;
 use Incraigulous\ContentfulSDK\ManagementResources\Entries as ManagementEntries;
 use Incraigulous\ContentfulSDK\Resources\Entries;
@@ -11,15 +14,17 @@ class ResourceTests extends PHPUnit_Framework_TestCase
 {
     protected function getAssets() {
         return [
-            new Assets('asdfasdfklj', 'asdfasdf'),
-            new ManagementAssets('asdfasdfklj', 'asdfasdf')
+            new Assets(new DeliveryClient('asdfasdfklj', 'asdfasdf')),
+            new Assets(new PreviewClient('asdfasdfklj', 'asdfasdf')),
+            new ManagementAssets(new ManagementClient('asdfasdfklj', 'asdfasdf'))
         ];
     }
 
     protected function getEntries() {
         return [
-            new Entries('asdfasdfklj', 'asdfasdf'),
-            new ManagementEntries('asdfasdfklj', 'asdfasdf')
+            new Entries(new DeliveryClient('asdfasdfklj', 'asdfasdf')),
+            new Entries(new PreviewClient('asdfasdfklj', 'asdfasdf')),
+            new ManagementEntries(new ManagementClient('asdfasdfklj', 'asdfasdf'))
         ];
     }
 

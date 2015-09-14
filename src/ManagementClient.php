@@ -48,7 +48,7 @@ class ManagementClient extends ClientBase {
                 'Content-Length' => (!count($payload)) ? 0 : strlen(json_encode($payload)),
             ], $headers),
             'body' => json_encode($payload)
-        ])->json(['object' => !$this->assoc]);
+        ]);
         return $result;
     }
 
@@ -68,7 +68,7 @@ class ManagementClient extends ClientBase {
                 'Content-Length' => (!count($payload)) ? 0 : strlen(json_encode($payload)),
             ], $headers),
             'body' => json_encode($payload)
-        ])->json(['object' => !$this->assoc]);
+        ]);
 
         return $result;
     }
@@ -85,7 +85,7 @@ class ManagementClient extends ClientBase {
             'headers' => array_merge([
                 'Authorization' => $this->getBearer()
             ], $headers)
-        ])->json(['object' => !$this->assoc]);
+        ]);
         return $result;
     }
 }
