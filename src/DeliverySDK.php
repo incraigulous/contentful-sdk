@@ -16,13 +16,21 @@ use Incraigulous\ContentfulSDK\Resources\Entries;
 
 class DeliverySDK extends SDKBase {
 
+    protected $preview;
+
+    function __construct($accessToken, $spaceId = null, CacherInterface $cacher = null, $preview = FALSE)
+    {
+      parent::__construct($accessToken, $spaceId, $cacher);
+      $this->preview = $preview;
+    }
+
     /**
      * Use the assets resource.
      * @return \Incraigulous\ContentfulSDK\Resources\Assets
      */
     function assets()
     {
-        return new Assets($this->accessToken, $this->spaceId, $this->cacher);
+        return new Assets($this->accessToken, $this->spaceId, $this->cacher, $this->preview);
     }
 
     /**
@@ -31,7 +39,7 @@ class DeliverySDK extends SDKBase {
      */
     function contentTypes()
     {
-        return new ContentTypes($this->accessToken, $this->spaceId, $this->cacher);
+        return new ContentTypes($this->accessToken, $this->spaceId, $this->cacher, $this->preview);
     }
 
     /**
@@ -40,7 +48,7 @@ class DeliverySDK extends SDKBase {
      */
     function entries()
     {
-        return new Entries($this->accessToken, $this->spaceId, $this->cacher);
+        return new Entries($this->accessToken, $this->spaceId, $this->cacher, $this->preview);
     }
 
     /**
@@ -49,7 +57,7 @@ class DeliverySDK extends SDKBase {
      */
     function spaces()
     {
-        return new Spaces($this->accessToken, $this->spaceId, $this->cacher);
+        return new Spaces($this->accessToken, $this->spaceId, $this->cacher, $this->preview);
     }
 
 }

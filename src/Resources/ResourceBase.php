@@ -14,11 +14,14 @@ abstract class ResourceBase {
     protected $requestDecorator;
     protected $cacher;
 
-    function __construct($accessToken, $spaceId = null, CacherInterface $cacher = null)
+    function __construct($accessToken, $spaceId = null, CacherInterface $cacher = null, $preview = FALSE)
     {
         $this->spaceId = $spaceId;
         $this->accessToken = $accessToken;
         $this->cacher = $cacher;
+        if( $preview ) {
+          $this->clientClassName = 'Incraigulous\ContentfulSDK\PreviewClient';
+        }
         $this->refresh();
     }
 
