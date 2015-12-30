@@ -30,7 +30,7 @@ Create a new instance of the delivery SDK:
 
 `````
     use Incraigulous\ContentfulSDK\DeliverySDK;
-    $deliverySDK = new DeliverySDK('TOKEN', 'SPACE_ID', $cacher);
+    $deliverySDK = new DeliverySDK('TOKEN', 'SPACE_ID', $cacher, $preview);
 `````
 
 **Token:** Your Contentful API token. You can generate this using the Contentful control panel.
@@ -39,6 +39,7 @@ Create a new instance of the delivery SDK:
 
 **Cacher:** *(optional, Incraigulous\ContentfulSDK\CacherInterface Implementation)* An object to handle caching. This is optional (and easy to implement), so don't let it scare you off. Check out the [caching](https://github.com/incraigulous/contentful-sdk/blob/master/readme.md#caching) section for more details.
 
+**Preview:** *(optional)* Set to `TRUE` to use the preview API, displaying drafts as well as published content.  Ensure your `TOKEN` is a preview token as well.
 
 ####Spaces
 
