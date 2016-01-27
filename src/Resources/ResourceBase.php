@@ -147,7 +147,12 @@ abstract class ResourceBase {
      */
     function order($orderBy, $reverse = false)
     {
-        $this->requestDecorator->addParameter('order', ($reverse) ? "=" : "=-", $orderBy);
+        if ($reverse) {
+            $this->requestDecorator->addParameter('order', '=', '-' . $orderBy);
+        }
+        else {
+            $this->requestDecorator->addParameter('order', '=', $orderBy);
+        }
         return $this;
     }
 
