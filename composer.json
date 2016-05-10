@@ -1,5 +1,5 @@
 {
-    "name": "incraigulous/contentful-sdk",
+    "name": "getyourguide/contentful-sdk",
     "license": "MIT",
     "require": {
         "php": ">=5.4.0",
