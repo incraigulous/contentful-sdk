@@ -68,7 +68,8 @@ abstract class ClientBase {
             'headers' => array_merge([
                 'Authorization' => $this->getBearer()
             ], $headers)
-        ])->json();
+        ]);
+        $result = json_decode($result->getBody(), true);
         if ($this->cacher) $this->cacher->put($key, $result);
         return $result;
     }

@@ -28,7 +28,8 @@ class ManagementClient extends ClientBase {
             'headers' => array_merge([
                 'Authorization' => $this->getBearer()
             ], $headers)
-        ])->json();
+        ]);
+        $result = json_decode($result->getBody(), true);
         return $result;
     }
 
@@ -37,7 +38,7 @@ class ManagementClient extends ClientBase {
      * @param $resource
      * @param array $payload
      * @param array $headers
-     * @return GuzzleHttp\Message\FutureResponse|GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface|mixed|null
+     * @return Psr\Http\Message\ResponseInterface|mixed|null
      */
     function post($resource, $payload = array(), $headers = array())
     {
@@ -57,7 +58,7 @@ class ManagementClient extends ClientBase {
      * @param $resource
      * @param array $payload
      * @param array $headers
-     * @return GuzzleHttp\Message\FutureResponse|GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface|mixed|null
+     * @return Psr\Http\Message\ResponseInterface|mixed|null
      */
     function put($resource, $payload = array(), $headers = array())
     {
@@ -77,7 +78,7 @@ class ManagementClient extends ClientBase {
      * Build and make a DELETE request.
      * @param $resource
      * @param array $headers
-     * @return GuzzleHttp\Message\FutureResponse|GuzzleHttp\Message\ResponseInterface|GuzzleHttp\Ring\Future\FutureInterface|mixed|null
+     * @return Psr\Http\Message\ResponseInterface|mixed|null
      */
     function delete($resource, $headers = array())
     {
