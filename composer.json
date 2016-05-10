@@ -1,5 +1,5 @@
 {
-    "name": "getyourguide/contentful-sdk",
+    "name": "gyg/contentful-sdk",
     "license": "MIT",
     "require": {
         "php": ">=5.4.0",
