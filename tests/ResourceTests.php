@@ -86,7 +86,7 @@ class ResourceTests extends PHPUnit_Framework_TestCase
             $this->assertArrayHasKey('skip', $query);
             $this->assertEquals(2, $query['skip']);
             $this->assertArrayHasKey('order', $query);
-            $this->assertEquals('cat', $query['order']);
+            $this->assertEquals('-cat', $query['order']);
             $this->assertCount(15, $query);
         }
 
