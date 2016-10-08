@@ -22,6 +22,7 @@ use Incraigulous\ContentfulSDK\ManagementResources\Webhooks;
  */
 
 class ManagementSDK extends SDKBase {
+    protected $clientClassName = 'Incraigulous\ContentfulSDK\ManagementClient';
 
     /**
      * Use the assets resource.
@@ -29,7 +30,7 @@ class ManagementSDK extends SDKBase {
      */
     function assets()
     {
-        return new Assets($this->accessToken, $this->spaceId, $this->cacher);
+        return new Assets($this->client);
     }
 
     /**
@@ -38,7 +39,7 @@ class ManagementSDK extends SDKBase {
      */
     function contentTypes()
     {
-        return new ContentTypes($this->accessToken, $this->spaceId, $this->cacher);
+        return new ContentTypes($this->client);
     }
 
     /**
@@ -47,7 +48,7 @@ class ManagementSDK extends SDKBase {
      */
     function entries()
     {
-        return new Entries($this->accessToken, $this->spaceId, $this->cacher);
+        return new Entries($this->client);
     }
 
     /**
@@ -56,7 +57,7 @@ class ManagementSDK extends SDKBase {
      */
     function spaces()
     {
-        return new Spaces($this->accessToken, $this->spaceId, $this->cacher);
+        return new Spaces($this->client);
     }
 
     /**
@@ -65,6 +66,6 @@ class ManagementSDK extends SDKBase {
      */
     function webhooks()
     {
-        return new Webhooks($this->accessToken, $this->spaceId, $this->cacher);
+        return new Webhooks($this->client);
     }
 }

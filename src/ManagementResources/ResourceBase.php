@@ -4,7 +4,6 @@ namespace Incraigulous\ContentfulSDK\ManagementResources;
 
 
 abstract class ResourceBase extends \Incraigulous\ContentfulSDK\Resources\ResourceBase {
-    protected $clientClassName = 'Incraigulous\ContentfulSDK\ManagementClient';
 
     /**
      * Make a post request.

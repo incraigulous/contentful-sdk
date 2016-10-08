@@ -28,7 +28,7 @@ class ManagementClient extends ClientBase {
             'headers' => array_merge([
                 'Authorization' => $this->getBearer()
             ], $headers)
-        ])->json();
+        ])->json(['object' => !$this->assoc]);
         return $result;
     }
 

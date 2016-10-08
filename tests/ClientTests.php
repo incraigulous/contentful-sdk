@@ -12,6 +12,7 @@ use GuzzleHttp\Post\PostBody;
 use Incraigulous\ContentfulSDK\DeliveryClient;
 use Incraigulous\ContentfulSDK\ManagementClient;
 use Incraigulous\ContentfulSDK\ManagementResources\Assets as ManagementAssets;
+use Incraigulous\ContentfulSDK\PreviewClient;
 use Incraigulous\ContentfulSDK\Resources\Assets;
 use Incraigulous\ContentfulSDK\ManagementResources\Entries as ManagementEntries;
 use Incraigulous\ContentfulSDK\Resources\Entries;
@@ -22,15 +23,17 @@ use PHPUnit_Framework_TestCase;
 class ClientTests extends PHPUnit_Framework_TestCase {
     protected function getAssets() {
         return [
-            new Assets('asdfasdfklj', 'asdfasdf'),
-            new ManagementAssets('asdfasdfklj', 'asdfasdf')
+            new Assets(new DeliveryClient('asdfasdfklj', 'asdfasdf')),
+            new Assets(new PreviewClient('asdfasdfklj', 'asdfasdf')),
+            new ManagementAssets(new ManagementClient('asdfasdfklj', 'asdfasdf'))
         ];
     }
 
     protected function getEntries() {
         return [
-            new Entries('asdfasdfklj', 'asdfasdf'),
-            new ManagementEntries('asdfasdfklj', 'asdfasdf')
+            new Entries(new DeliveryClient('asdfasdfklj', 'asdfasdf')),
+            new Entries(new PreviewClient('asdfasdfklj', 'asdfasdf')),
+            new ManagementEntries(new ManagementClient('asdfasdfklj', 'asdfasdf'))
         ];
     }
 
@@ -56,49 +59,49 @@ class ClientTests extends PHPUnit_Framework_TestCase {
     }
 
     public function testPost() {
-        $resource = $this->attachSuccessful(new ManagementEntries('asdfasdfklj', 'asdfasdf'));
+        $resource = $this->attachSuccessful(new ManagementEntries(new ManagementClient('asdfasdfklj', 'asdfasdf')));
         $response = $resource->post(array('fields' => array('cat' => 'dog')));
         $this->assertEquals('200', $response->getStatusCode());
     }
 
     public function testPut() {
-        $resource = $this->attachSuccessful(new ManagementEntries('asdfasdfklj', 'asdfasdf'));
+        $resource = $this->attachSuccessful(new ManagementEntries(new ManagementClient('asdfasdfklj', 'asdfasdf')));
         $response = $resource->put('asdfasdf', array('fields' => array('cat' => 'dog')));
         $this->assertEquals('200', $response->getStatusCode());
     }
 
     public function testDelete() {
-        $resource = $this->attachSuccessful(new ManagementEntries('asdfasdfklj', 'asdfasdf'));
+        $resource = $this->attachSuccessful(new ManagementEntries(new ManagementClient('asdfasdfklj', 'asdfasdf')));
         $response = $resource->delete('asdfasdf');
         $this->assertEquals('200', $response->getStatusCode());
     }
 
     public function testProcess() {
-        $resource = $this->attachSuccessful(new ManagementAssets('asdfasdfklj', 'asdfasdf'));
+        $resource = $this->attachSuccessful(new ManagementAssets(new ManagementClient('asdfasdfklj', 'asdfasdf')));
         $response = $resource->process('asdfasdf');
         $this->assertEquals('200', $response->getStatusCode());
     }
 
     public function testArchive() {
-        $resource = $this->attachSuccessful(new ManagementAssets('asdfasdfklj', 'asdfasdf'));
+        $resource = $this->attachSuccessful(new ManagementAssets(new ManagementClient('asdfasdfklj', 'asdfasdf')));
         $response = $resource->archive('asdfasdf');
         $this->assertEquals('200', $response->getStatusCode());
     }
 
     public function testUnarchive() {
-        $resource = $this->attachSuccessful(new ManagementAssets('asdfasdfklj', 'asdfasdf'));
+        $resource = $this->attachSuccessful(new ManagementAssets(new ManagementClient('asdfasdfklj', 'asdfasdf')));
         $response = $resource->unarchive('asdfasdf');
         $this->assertEquals('200', $response->getStatusCode());
     }
 
     public function testPublish() {
-        $resource = $this->attachSuccessful(new ManagementAssets('asdfasdfklj', 'asdfasdf'));
+        $resource = $this->attachSuccessful(new ManagementAssets(new ManagementClient('asdfasdfklj', 'asdfasdf')));
         $response = $resource->publish('asdfasdf', 234);
         $this->assertEquals('200', $response->getStatusCode());
     }
 
     public function testUnpublish() {
-        $resource = $this->attachSuccessful(new ManagementAssets('asdfasdfklj', 'asdfasdf'));
+        $resource = $this->attachSuccessful(new ManagementAssets(new ManagementClient('asdfasdfklj', 'asdfasdf')));
         $response = $resource->unpublish('asdfasdf', 123);
         $this->assertEquals('200', $response->getStatusCode());
     }
