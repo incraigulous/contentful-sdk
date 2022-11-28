@@ -8,21 +8,22 @@
 
 namespace Incraigulous\ContentfulSDK\Tests;
 
+use Incraigulous\ContentfulSDK\ManagementSDK;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Asset;
 use Incraigulous\ContentfulSDK\PayloadBuilders\AssetField;
-use Incraigulous\ContentfulSDK\PayloadBuilders\File;
 use Incraigulous\ContentfulSDK\PayloadBuilders\ContentType;
 use Incraigulous\ContentfulSDK\PayloadBuilders\ContentTypeField;
 use Incraigulous\ContentfulSDK\PayloadBuilders\ContentTypeValidation;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Entry;
 use Incraigulous\ContentfulSDK\PayloadBuilders\EntryField;
+use Incraigulous\ContentfulSDK\PayloadBuilders\File;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Space;
-use PHPUnit_Framework_TestCase;
-use Incraigulous\ContentfulSDK\ManagementSDK;
+use PHPUnit\Framework\TestCase;
 
-class PayloadTests extends PHPUnit_Framework_TestCase {
-
-    protected function get_decorated_diff($old, $new){
+class PayloadTests extends TestCase
+{
+    protected function get_decorated_diff($old, $new)
+    {
         $from_start = strspn($old ^ $new, "\0");
         $from_end = strspn(strrev($old) ^ strrev($new), "\0");
 
@@ -36,10 +37,11 @@ class PayloadTests extends PHPUnit_Framework_TestCase {
 
         $new = "$start>>>>>$new_diff<<<<<$end";
         $old = "$start>>>>>$old_diff<<<<<$end";
-        return array("old"=>$old, "new"=>$new);
+        return array("old" => $old, "new" => $new);
     }
 
-    function testSpacePayload() {
+    public function testSpacePayload(): void
+    {
         $expected = '{"name":"Example Space"}';
         $decorator = (new ManagementSDK('adsf', 'adsf'))->spaces()->decorator();
 
@@ -52,95 +54,96 @@ class PayloadTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, json_encode($payload));
     }
 
-    function testContentTypePayload() {
+    public function testContentTypePayload(): void
+    {
         $expected = '{"name":"Blog Post","displayField":"title","fields":[{"id":"title","name":"Title","type":"Text","required":true,"localized":true},{"id":"body","name":"Body","type":"Text","validations":[{"size":{"min":5}},{"in":[1,2,3]},{"dateRange":{"min":"2013-02-08T09:12Z","max":"2015-12-08"}},{"assetFileSize":{"min":12,"max":100}},{"assetImageDimensions":{"height":{"min":10,"max":200},"width":{"min":20,"max":30}}},{"regexp":{"pattern":"wow|very|such"}}]}]}';
         $decorator = (new ManagementSDK('adsf', 'adsf'))->contentTypes()->decorator();
         $decorator->setPayload(new ContentType('Blog Post', 'title', [
             new ContentTypeField('title', 'Title', 'Text', true, true),
-            (new ContentTypeField('body', 'Body', 'Text', false, false))->setValidations((new ContentTypeValidation())->size(5)->in([1,2,3])->dateRange("2013-02-08T09:12Z","2015-12-08")->assetFileSize(12, 100)->assetImageDimensions(['min' => 10, 'max' => 200], ['min' => 20, 'max' => 30])->regexp("wow|very|such"))
+            (new ContentTypeField('body', 'Body', 'Text', false, false))->setValidations((new ContentTypeValidation())->size(5)->in([1, 2, 3])->dateRange("2013-02-08T09:12Z", "2015-12-08")->assetFileSize(12, 100)->assetImageDimensions(['min' => 10, 'max' => 200], ['min' => 20, 'max' => 30])->regexp("wow|very|such"))
         ]));
         $payload = $decorator->makePayload();
         $this->assertEquals($expected, json_encode($payload));
 
 
-        $decorator->setPayload(array (
-          'name' => 'Blog Post',
-          'displayField' => 'title',
-          'fields' =>
-              array (
-                0 =>
-                array (
-                  'id' => 'title',
-                  'name' => 'Title',
-                  'type' => 'Text',
-                  'required' => true,
-                  'localized' => true,
-                ),
-                1 =>
-                array (
-                  'id' => 'body',
-                  'name' => 'Body',
-                  'type' => 'Text',
-                  'validations' =>
-                  array (
-                    0 =>
-                    array (
-                      'size' =>
-                      array (
-                        'min' => 5,
-                      ),
+        $decorator->setPayload(array(
+                'name' => 'Blog Post',
+                'displayField' => 'title',
+                'fields' =>
+                    array(
+                        0 =>
+                            array(
+                                'id' => 'title',
+                                'name' => 'Title',
+                                'type' => 'Text',
+                                'required' => true,
+                                'localized' => true,
+                            ),
+                        1 =>
+                            array(
+                                'id' => 'body',
+                                'name' => 'Body',
+                                'type' => 'Text',
+                                'validations' =>
+                                    array(
+                                        0 =>
+                                            array(
+                                                'size' =>
+                                                    array(
+                                                        'min' => 5,
+                                                    ),
+                                            ),
+                                        1 =>
+                                            array(
+                                                'in' =>
+                                                    array(
+                                                        0 => 1,
+                                                        1 => 2,
+                                                        2 => 3,
+                                                    ),
+                                            ),
+                                        2 =>
+                                            array(
+                                                'dateRange' =>
+                                                    array(
+                                                        'min' => '2013-02-08T09:12Z',
+                                                        'max' => '2015-12-08',
+                                                    ),
+                                            ),
+                                        3 =>
+                                            array(
+                                                'assetFileSize' =>
+                                                    array(
+                                                        'min' => 12,
+                                                        'max' => 100,
+                                                    ),
+                                            ),
+                                        4 =>
+                                            array(
+                                                'assetImageDimensions' =>
+                                                    array(
+                                                        'height' =>
+                                                            array(
+                                                                'min' => 10,
+                                                                'max' => 200,
+                                                            ),
+                                                        'width' =>
+                                                            array(
+                                                                'min' => 20,
+                                                                'max' => 30,
+                                                            ),
+                                                    ),
+                                            ),
+                                        5 =>
+                                            array(
+                                                'regexp' =>
+                                                    array(
+                                                        'pattern' => 'wow|very|such',
+                                                    ),
+                                            ),
+                                    ),
+                            ),
                     ),
-                    1 =>
-                    array (
-                      'in' =>
-                      array (
-                        0 => 1,
-                        1 => 2,
-                        2 => 3,
-                      ),
-                    ),
-                    2 =>
-                    array (
-                      'dateRange' =>
-                      array (
-                        'min' => '2013-02-08T09:12Z',
-                        'max' => '2015-12-08',
-                      ),
-                    ),
-                    3 =>
-                    array (
-                      'assetFileSize' =>
-                      array (
-                        'min' => 12,
-                        'max' => 100,
-                      ),
-                    ),
-                    4 =>
-                    array (
-                      'assetImageDimensions' =>
-                      array (
-                        'height' =>
-                        array (
-                          'min' => 10,
-                          'max' => 200,
-                        ),
-                        'width' =>
-                        array (
-                          'min' => 20,
-                          'max' => 30,
-                        ),
-                      ),
-                    ),
-                    5 =>
-                    array (
-                      'regexp' =>
-                      array (
-                        'pattern' => 'wow|very|such',
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             )
         );
         $payload = $decorator->makePayload();
@@ -175,69 +178,70 @@ class PayloadTests extends PHPUnit_Framework_TestCase {
 
         $decorator->setPayload(new ContentType('Blog Post', 'title', [
             new ContentTypeField('title', 'Title', 'Text', true, true),
-            (new ContentTypeField('body', 'Body', 'Text', false, false))->setValidations(array (
-            0 =>
-                array (
-                    'size' =>
-                        array (
-                            'min' => 5,
-                        ),
-                ),
-            1 =>
-                array (
-                    'in' =>
-                        array (
-                            0 => 1,
-                            1 => 2,
-                            2 => 3,
-                        ),
-                ),
-            2 =>
-                array (
-                    'dateRange' =>
-                        array (
-                            'min' => '2013-02-08T09:12Z',
-                            'max' => '2015-12-08',
-                        ),
-                ),
-            3 =>
-                array (
-                    'assetFileSize' =>
-                        array (
-                            'min' => 12,
-                            'max' => 100,
-                        ),
-                ),
-            4 =>
-                array (
-                    'assetImageDimensions' =>
-                        array (
-                            'height' =>
-                                array (
-                                    'min' => 10,
-                                    'max' => 200,
-                                ),
-                            'width' =>
-                                array (
-                                    'min' => 20,
-                                    'max' => 30,
-                                ),
-                        ),
-                ),
-            5 =>
-                array (
-                    'regexp' =>
-                        array (
-                            'pattern' => 'wow|very|such',
-                        ),
-                ),
-        ))
+            (new ContentTypeField('body', 'Body', 'Text', false, false))->setValidations(array(
+                0 =>
+                    array(
+                        'size' =>
+                            array(
+                                'min' => 5,
+                            ),
+                    ),
+                1 =>
+                    array(
+                        'in' =>
+                            array(
+                                0 => 1,
+                                1 => 2,
+                                2 => 3,
+                            ),
+                    ),
+                2 =>
+                    array(
+                        'dateRange' =>
+                            array(
+                                'min' => '2013-02-08T09:12Z',
+                                'max' => '2015-12-08',
+                            ),
+                    ),
+                3 =>
+                    array(
+                        'assetFileSize' =>
+                            array(
+                                'min' => 12,
+                                'max' => 100,
+                            ),
+                    ),
+                4 =>
+                    array(
+                        'assetImageDimensions' =>
+                            array(
+                                'height' =>
+                                    array(
+                                        'min' => 10,
+                                        'max' => 200,
+                                    ),
+                                'width' =>
+                                    array(
+                                        'min' => 20,
+                                        'max' => 30,
+                                    ),
+                            ),
+                    ),
+                5 =>
+                    array(
+                        'regexp' =>
+                            array(
+                                'pattern' => 'wow|very|such',
+                            ),
+                    ),
+            ))
         ]));
         $payload = $decorator->makePayload();
         $this->assertEquals($expected, json_encode($payload));
     }
 
-    function testContentTypeLinks() {
+    public function testContentTypeLinks(): void
+    {
         $expected = '{"name":"Links","displayField":"theLink","fields":[{"id":"thelink","name":"The Link","type":"Array","items":{"type":"Link","linkType":"Asset"},"required":true,"localized":true},{"id":"themulti","name":"The Multi","type":"Link","linkType":"Entry"}]}';
         $decorator = (new ManagementSDK('adsf', 'adsf'))->contentTypes()->decorator();
         $decorator->setPayload(new ContentType('Links', 'theLink', [
@@ -248,7 +252,8 @@ class PayloadTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, json_encode($payload));
     }
 
-    function testEntryPayload() {
+    public function testEntryPayload(): void
+    {
         $expected = '{"fields":{"title":{"en-US":"Hello, World!"},"body":{"en-US":"Bacon is healthy!"},"contentList":{"en-US":[{"sys":{"type":"Link","linkType":"Entry","id":"nice-burger"}},{"sys":{"type":"Link","linkType":"Entry","id":"such-dessert"}}]}}}';
         $decorator = (new ManagementSDK('adsf', 'adsf'))->entries()->decorator();
 
@@ -261,12 +266,13 @@ class PayloadTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, json_encode($payload));
     }
 
-    function testAssetPayload() {
+    public function testAssetPayload(): void
+    {
         $expected = '{"fields":{"title":{"en-US":"Bacon Pancakes"},"file":{"en-US":{"contentType":"image/jpeg","fileName":"example.jpg","upload":"https://example.com/example.jpg"}}}}';
         $decorator = (new ManagementSDK('adsf', 'adsf'))->entries()->decorator();
 
         $decorator->setPayload(
-                new Asset([
+            new Asset([
                     new AssetField('title', 'Bacon Pancakes'),
                     new File("image/jpeg", "example.jpg", "https://example.com/example.jpg")
                 ]

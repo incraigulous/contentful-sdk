@@ -1,117 +1,124 @@
 <?php
 namespace Incraigulous\ContentfulSDK\Tests;
 
+use Incraigulous\ContentfulSDK\DeliveryClient;
 use Incraigulous\ContentfulSDK\DeliverySDK;
+use Incraigulous\ContentfulSDK\ManagementClient;
+use Incraigulous\ContentfulSDK\ManagementResources\Webhooks;
 use Incraigulous\ContentfulSDK\ManagementSDK;
-use PHPUnit_Framework_TestCase;
+use Incraigulous\ContentfulSDK\Resources\Assets;
+use Incraigulous\ContentfulSDK\Resources\ContentTypes;
+use Incraigulous\ContentfulSDK\Resources\Entries;
+use Incraigulous\ContentfulSDK\Resources\Spaces;
+use PHPUnit\Framework\TestCase;
 
-class FactoryTests extends PHPUnit_Framework_TestCase
+class FactoryTests extends TestCase
 {
-    function testAssetsReturnsClient()
+    public function testAssetsReturnsClient(): void
     {
         $client = (new DeliverySDK('asdf', 'asdf'))->assets()->client();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\DeliveryClient', $client);
+        $this->assertInstanceOf(DeliveryClient::class, $client);
     }
 
-    function testAssetsReturnsResource()
+    public function testAssetsReturnsResource(): void
     {
         $resource = (new DeliverySDK('asdf', 'asdf'))->assets();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\Resources\Assets', $resource);
+        $this->assertInstanceOf(Assets::class, $resource);
     }
 
-    function testEntriesReturnsClient()
+    public function testEntriesReturnsClient(): void
     {
         $client = (new DeliverySDK('asdf', 'asdf'))->entries()->client();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\DeliveryClient', $client);
+        $this->assertInstanceOf(DeliveryClient::class, $client);
     }
 
-    function testEntriesReturnsResource()
+    public function testEntriesReturnsResource(): void
     {
         $resource = (new DeliverySDK('asdf', 'asdf'))->entries();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\Resources\Entries', $resource);
+        $this->assertInstanceOf(Entries::class, $resource);
     }
 
-    function testSpacesReturnsClient()
+    public function testSpacesReturnsClient(): void
     {
         $client = (new DeliverySDK('asdf', 'asdf'))->spaces()->client();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\DeliveryClient', $client);
+        $this->assertInstanceOf(DeliveryClient::class, $client);
     }
 
-    function testSpacesReturnsResource()
+    public function testSpacesReturnsResource(): void
     {
         $resource = (new DeliverySDK('asdf', 'asdf'))->spaces();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\Resources\Spaces', $resource);
+        $this->assertInstanceOf(Spaces::class, $resource);
     }
 
-    function testContentTypesReturnsClient()
+    public function testContentTypesReturnsClient(): void
     {
         $client = (new DeliverySDK('asdf', 'asdf'))->contentTypes()->client();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\DeliveryClient', $client);
+        $this->assertInstanceOf(DeliveryClient::class, $client);
     }
 
-    function testContentTypesReturnsResource()
+    public function testContentTypesReturnsResource(): void
     {
         $resource = (new DeliverySDK('asdf', 'asdf'))->contentTypes();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\Resources\ContentTypes', $resource);
+        $this->assertInstanceOf(ContentTypes::class, $resource);
     }
 
-    function testManagementAssetsReturnsClient()
+    public function testManagementAssetsReturnsClient(): void
     {
         $client = (new ManagementSDK('asdf', 'asdf'))->assets()->client();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementClient', $client);
+        $this->assertInstanceOf(ManagementClient::class, $client);
     }
 
-    function testManagementAssetsReturnsResource()
+    public function testManagementAssetsReturnsResource(): void
     {
         $resource = (new ManagementSDK('asdf', 'asdf'))->assets();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementResources\Assets', $resource);
+        $this->assertInstanceOf(\Incraigulous\ContentfulSDK\ManagementResources\Assets::class, $resource);
     }
 
-    function testManagementEntriesReturnsClient()
+    public function testManagementEntriesReturnsClient(): void
     {
         $client = (new ManagementSDK('asdf', 'asdf'))->entries()->client();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementClient', $client);
+        $this->assertInstanceOf(ManagementClient::class, $client);
     }
 
-    function testManagementEntriesReturnsResource()
+    public function testManagementEntriesReturnsResource(): void
     {
         $resource = (new ManagementSDK('asdf', 'asdf'))->entries();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementResources\Entries', $resource);
+        $this->assertInstanceOf(\Incraigulous\ContentfulSDK\ManagementResources\Entries::class, $resource);
     }
 
-    function testManagementSpacesReturnsClient()
+    public function testManagementSpacesReturnsClient(): void
     {
         $client = (new ManagementSDK('asdf', 'asdf'))->spaces()->client();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementClient', $client);
+        $this->assertInstanceOf(ManagementClient::class, $client);
     }
 
-    function testManagementSpacesReturnsResource()
+    public function testManagementSpacesReturnsResource(): void
     {
         $resource = (new ManagementSDK('asdf', 'asdf'))->spaces();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementResources\Spaces', $resource);
+        $this->assertInstanceOf(\Incraigulous\ContentfulSDK\ManagementResources\Spaces::class, $resource);
     }
 
-    function testManagementContentTypesReturnsClient()
+    public function testManagementContentTypesReturnsClient(): void
     {
         $client = (new ManagementSDK('asdf', 'asdf'))->contentTypes()->client();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementClient', $client);
+        $this->assertInstanceOf(ManagementClient::class, $client);
     }
 
-    function testManagementContentTypesReturnsResource()
+    public function testManagementContentTypesReturnsResource(): void
     {
         $resource = (new ManagementSDK('asdf', 'asdf'))->contentTypes();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementResources\ContentTypes', $resource);
+        $this->assertInstanceOf(\Incraigulous\ContentfulSDK\ManagementResources\ContentTypes::class, $resource);
     }
 
-    function testManagementWebhooksReturnsClient()
+    public function testManagementWebhooksReturnsClient(): void
     {
         $client = (new ManagementSDK('asdf', 'asdf'))->webhooks()->client();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementClient', $client);
+        $this->assertInstanceOf(ManagementClient::class, $client);
     }
 
-    function testManagementWebhooksReturnsResource()
+    public function testManagementWebhooksReturnsResource(): void
     {
         $resource = (new ManagementSDK('asdf', 'asdf'))->webhooks();
-        $this->assertInstanceOf('Incraigulous\ContentfulSDK\ManagementResources\Webhooks', $resource);
+        $this->assertInstanceOf(Webhooks::class, $resource);
     }
 }

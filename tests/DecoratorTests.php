@@ -8,26 +8,29 @@
 
 namespace Incraigulous\ContentfulSDK\Tests;
 
-use PHPUnit_Framework_TestCase;
 use Incraigulous\ContentfulSDK\RequestDecorator;
+use PHPUnit\Framework\TestCase;
 
-class DecoratorTests extends PHPUnit_Framework_TestCase {
-
-    function testSetResource() {
+class DecoratorTests extends TestCase
+{
+    public function testSetResource(): void
+    {
         $decorator = new RequestDecorator();
         $decorator->setResource('test');
         $resource = $decorator->makeResource();
         $this->assertEquals('test', $resource);
     }
 
-    function testSetId() {
+    public function testSetId(): void
+    {
         $decorator = new RequestDecorator();
         $decorator->setId('test');
         $resource = $decorator->makeResource();
         $this->assertEquals('/test', $resource);
     }
 
-    function testAddParemater() {
+    public function testAddParemater(): void
+    {
         $decorator = new RequestDecorator();
         $decorator->addParameter('1', '=', '9');
         $decorator->addParameter('2', '=', '8');
@@ -39,7 +42,8 @@ class DecoratorTests extends PHPUnit_Framework_TestCase {
         $this->assertEquals(6, $resource[4]);
     }
 
-    function testAddHeader() {
+    public function testAddHeader(): void
+    {
         $decorator = new RequestDecorator();
         $decorator->addHeader('cat', 'dog');
         $decorator->addHeader('dog', 'cat');

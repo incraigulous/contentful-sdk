@@ -8,41 +8,45 @@
 
 namespace Incraigulous\ContentfulSDK\Tests;
 
-use PHPUnit_Framework_TestCase;
 use Incraigulous\ContentfulSDK\PayloadBuilders\Entry;
 use Incraigulous\ContentfulSDK\PayloadBuilders\EntryField;
+use PHPUnit\Framework\TestCase;
 
-class EntryPayloadBuilderTests extends PHPUnit_Framework_TestCase {
+class EntryPayloadBuilderTests extends TestCase
+{
 
-    function testObjectifyFieldsObjects() {
-            $entry = new Entry([
-                new EntryField('test', 'content'),
-                new EntryField('test', 'content')
-            ]);
-            $result = $entry->make();
-            $this->assertTrue(is_array($result));
-            foreach($result['fields'] as $field) {
-                $this->assertTrue(is_object($field));
-                $fieldResult = $field->make();
-                $this->assertTrue(is_array($fieldResult));
-            }
-    }
-
-    function testObjectifyFieldsArrays() {
+    public function testObjectifyFieldsObjects(): void
+    {
         $entry = new Entry([
-            ['test' => ['en-us' => 'content']],
-            ['test' => ['en-us' => 'content']]
+            new EntryField('test', 'content'),
+            new EntryField('test', 'content')
         ]);
         $result = $entry->make();
         $this->assertTrue(is_array($result));
-        foreach($result['fields'] as $field) {
+        foreach ($result['fields'] as $field) {
             $this->assertTrue(is_object($field));
             $fieldResult = $field->make();
             $this->assertTrue(is_array($fieldResult));
         }
     }
 
-    function testCompareObjectsAndArrays() {
+    public function testObjectifyFieldsArrays(): void
+    {
+        $entry = new Entry([
+            ['test' => ['en-us' => 'content']],
+            ['test' => ['en-us' => 'content']]
+        ]);
+        $result = $entry->make();
+        $this->assertTrue(is_array($result));
+        foreach ($result['fields'] as $field) {
+            $this->assertTrue(is_object($field));
+            $fieldResult = $field->make();
+            $this->assertTrue(is_array($fieldResult));
+        }
+    }
+
+    public function testCompareObjectsAndArrays(): void
+    {
         $objectEntry = new Entry([
             new EntryField('test', 'content'),
             new EntryField('test', 'content')

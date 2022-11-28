@@ -2,44 +2,49 @@
 namespace Incraigulous\ContentfulSDK\Tests;
 
 use Incraigulous\ContentfulSDK\ManagementResources\Assets as ManagementAssets;
-use Incraigulous\ContentfulSDK\Resources\Assets;
 use Incraigulous\ContentfulSDK\ManagementResources\Entries as ManagementEntries;
+use Incraigulous\ContentfulSDK\Resources\Assets;
 use Incraigulous\ContentfulSDK\Resources\Entries;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class ResourceTests extends PHPUnit_Framework_TestCase
+class ResourceTests extends TestCase
 {
-    protected function getAssets() {
+    protected function getAssets(): array
+    {
         return [
             new Assets('asdfasdfklj', 'asdfasdf'),
             new ManagementAssets('asdfasdfklj', 'asdfasdf')
         ];
     }
 
-    protected function getEntries() {
+    protected function getEntries(): array
+    {
         return [
             new Entries('asdfasdfklj', 'asdfasdf'),
             new ManagementEntries('asdfasdfklj', 'asdfasdf')
         ];
     }
 
-    public function testFind() {
-        foreach($this->getAssets() as $resource) {
+    public function testFind(): void
+    {
+        foreach ($this->getAssets() as $resource) {
             $resource->find('carrot');
             $this->assertContains('carrot', $resource->decorator()->makeResource());
         }
     }
 
-    public function testRefresh() {
-        foreach($this->getAssets() as $resource) {
+    public function testRefresh(): void
+    {
+        foreach ($this->getAssets() as $resource) {
             $resource->find('carrot');
             $resource->refresh();
             $this->assertNotContains('carrot', $resource->decorator()->makeResource());
         }
     }
 
-    public function testQuery() {
-        foreach($this->getAssets() as $resource) {
+    public function testQuery(): void
+    {
+        foreach ($this->getAssets() as $resource) {
             $resource->where('cat', '!=', 'dog')
                 ->where('cat', '=', 'dog')
                 ->where('cat', '<', 'dog')
@@ -92,15 +97,17 @@ class ResourceTests extends PHPUnit_Framework_TestCase
 
     }
 
-    public function testSetType() {
-        foreach($this->getEntries() as $resource) {
+    public function testSetType(): void
+    {
+        foreach ($this->getEntries() as $resource) {
             $resource->limitByType('cat');
             $this->assertContains('cat', $resource->decorator()->makeQuery());
         }
     }
 
-    public function testIncludeLinks() {
-        foreach($this->getEntries() as $resource) {
+    public function testIncludeLinks(): void
+    {
+        foreach ($this->getEntries() as $resource) {
             $resource->includeLinks(10);
             $this->assertEquals(10, $resource->decorator()->makeQuery()['include']);
         }

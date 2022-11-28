@@ -1,8 +1,6 @@
 <?php
 namespace Incraigulous\ContentfulSDK;
 
-use GuzzleHttp;
-
 class ManagementClient extends ClientBase {
     protected $endpointBase = 'https://api.contentful.com/spaces';
 
@@ -66,7 +64,7 @@ class ManagementClient extends ClientBase {
             'headers' => array_merge([
                 'Content-Type' => $this->getContentType(),
                 'Authorization' => $this->getBearer(),
-                'Content-Length' => (!count($payload)) ? 0 : strlen(json_encode($payload)),
+                'Content-Length' => (!empty($payload)) ? 0 : strlen(json_encode($payload)),
             ], $headers),
             'body' => json_encode($payload)
         ]);
