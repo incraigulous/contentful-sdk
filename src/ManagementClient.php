@@ -1,7 +1,10 @@
 <?php
 namespace Incraigulous\ContentfulSDK;
 
-class ManagementClient extends ClientBase {
+use Psr\Http\Message\ResponseInterface;
+
+class ManagementClient extends ClientBase
+{
     protected $endpointBase = 'https://api.contentful.com/spaces';
 
     /**
@@ -36,7 +39,7 @@ class ManagementClient extends ClientBase {
      * @param $resource
      * @param array $payload
      * @param array $headers
-     * @return Psr\Http\Message\ResponseInterface|mixed|null
+     * @return ResponseInterface|mixed|null
      */
     function post($resource, $payload = array(), $headers = array())
     {
@@ -56,7 +59,7 @@ class ManagementClient extends ClientBase {
      * @param $resource
      * @param array $payload
      * @param array $headers
-     * @return Psr\Http\Message\ResponseInterface|mixed|null
+     * @return ResponseInterface|mixed|null
      */
     function put($resource, $payload = array(), $headers = array())
     {
@@ -76,7 +79,7 @@ class ManagementClient extends ClientBase {
      * Build and make a DELETE request.
      * @param $resource
      * @param array $headers
-     * @return Psr\Http\Message\ResponseInterface|mixed|null
+     * @return ResponseInterface|mixed|null
      */
     function delete($resource, $headers = array())
     {

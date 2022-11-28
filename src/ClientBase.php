@@ -4,6 +4,7 @@ namespace Incraigulous\ContentfulSDK;
 use GuzzleHttp;
 
 abstract class ClientBase {
+    /** @var GuzzleHttp\ClientInterface */
     protected $client;
     protected $spaceId;
     protected $accessToken;
